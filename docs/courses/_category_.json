@@ -1,0 +1,9 @@
+{
+  "label": "Courses",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "title": "Courses",
+    "description": "Các lộ trình học lập trình của Visualize Code."
+  }
+}

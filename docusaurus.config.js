@@ -10,9 +10,9 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
-  favicon: 'img/favicon.ico',
+  title: 'Visualize Code',
+  tagline: 'Học lập trình bằng animation trực quan',
+  favicon: 'img/favicon.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -36,8 +36,8 @@ const config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'vi',
+    locales: ['vi'],
   },
 
   presets: [
@@ -47,10 +47,8 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/sunny251010/visualize-code/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -58,10 +56,8 @@ const config = {
             type: ['rss', 'atom'],
             xslt: true,
           },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/sunny251010/visualize-code/tree/main/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -77,76 +73,68 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/logo.svg',
       colorMode: {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'My Site',
+        title: 'Visualize Code',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Visualize Code Logo',
           src: 'img/logo.svg',
         },
         items: [
+          {to: '/', label: 'Home', position: 'left'},
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'dropdown',
+            label: 'Courses',
             position: 'left',
-            label: 'Tutorial',
+            items: [
+              {label: 'DSA', to: '/docs/courses/dsa/intro'},
+              {label: 'Python', to: '/docs/courses/python/intro'},
+              {label: 'C++', to: '/docs/courses/cpp/intro'},
+              {label: 'OOP', to: '/docs/courses/oop/intro'},
+              {label: 'Algorithms', to: '/docs/courses/algorithms/intro'},
+              {label: 'Data Structures', to: '/docs/courses/data-structures/intro'},
+              {label: 'Interview Prep', to: '/docs/courses/interview-prep/intro'},
+            ],
           },
+          {to: '/visualizer', label: 'Visualizer', position: 'left'},
+          {to: '/quiz', label: 'Quiz', position: 'left'},
           {to: '/blog', label: 'Blog', position: 'left'},
-          {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
-            position: 'right',
-          },
         ],
       },
       footer: {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Courses',
             items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
+              {label: 'DSA', to: '/docs/courses/dsa/intro'},
+              {label: 'Python', to: '/docs/courses/python/intro'},
+              {label: 'C++', to: '/docs/courses/cpp/intro'},
+              {label: 'OOP', to: '/docs/courses/oop/intro'},
             ],
           },
           {
-            title: 'Community',
+            title: 'Practice',
             items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
+              {label: 'Visualizer', to: '/visualizer'},
+              {label: 'Quiz', to: '/quiz'},
             ],
           },
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
+              {label: 'Blog', to: '/blog'},
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://github.com/sunny251010/visualize-code',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Visualize Code. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

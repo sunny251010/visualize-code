@@ -1,23 +1,295 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+.hero {
+  padding: 5rem 0 4rem;
+  background:
+    linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(34, 197, 94, 0.10)),
+    var(--vc-surface);
+}
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
-  position: relative;
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 3rem;
+  align-items: center;
+}
+
+.heroContent {
+  max-width: 720px;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--ifm-color-primary-dark);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+
+.heroTitle {
+  margin-bottom: 0.75rem;
+  font-size: clamp(3rem, 7vw, 5.8rem);
+  line-height: 0.96;
+}
+
+.heroSubtitle {
+  margin: 0;
+  color: var(--ifm-color-primary-darkest);
+  font-size: 1.45rem;
+  font-weight: 700;
+}
+
+.heroText {
+  margin: 1.25rem 0 0;
+  max-width: 650px;
+  color: var(--vc-text-muted);
+  font-size: 1.08rem;
+  line-height: 1.7;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 2rem;
+}
+
+.visualPanel {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: #0f172a;
+  box-shadow: 0 26px 70px rgba(15, 23, 42, 0.2);
+  color: #e2e8f0;
   overflow: hidden;
 }
 
+.panelTopbar {
+  display: flex;
+  gap: 0.45rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(15, 23, 42, 0.9);
+}
+
+.panelTopbar span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #38bdf8;
+}
+
+.panelTopbar span:nth-child(2) {
+  background: #f59e0b;
+}
+
+.panelTopbar span:nth-child(3) {
+  background: #22c55e;
+}
+
+.arrayRow {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.65rem;
+  padding: 1.4rem;
+}
+
+.arrayCell {
+  display: flex;
+  min-height: 3.6rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 8px;
+  background: rgba(30, 41, 59, 0.95);
+  color: #dbeafe;
+  font-weight: 800;
+}
+
+.arrayCellActive {
+  border-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.18);
+  color: #fef3c7;
+}
+
+.trace {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  padding: 0 1.4rem 1.4rem;
+}
+
+.trace div {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 8px;
+  padding: 0.85rem;
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.trace strong,
+.trace span {
+  display: block;
+}
+
+.trace strong {
+  color: #93c5fd;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.trace span {
+  color: #f8fafc;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.codePreview {
+  margin: 0;
+  padding: 1.4rem;
+  border-top: 1px solid rgba(148, 163, 184, 0.22);
+  background: rgba(2, 6, 23, 0.72);
+  color: #bbf7d0;
+  font-size: 0.95rem;
+}
+
+.section,
+.sectionAlt {
+  padding: 4rem 0;
+}
+
+.sectionAlt {
+  background: var(--vc-surface);
+}
+
+.sectionHeader {
+  max-width: 760px;
+  margin-bottom: 1.7rem;
+}
+
+.sectionHeader p,
+.split p,
+.ctaBand p {
+  color: var(--vc-text-muted);
+  line-height: 1.7;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.courseCard {
+  display: block;
+  min-height: 11rem;
+  padding: 1.25rem;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  color: inherit;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.courseCard:hover {
+  border-color: var(--ifm-color-primary);
+  color: inherit;
+  text-decoration: none;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.1);
+}
+
+.courseCard span {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--ifm-color-primary-darkest);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.courseCard p {
+  margin: 0;
+  color: var(--vc-text-muted);
+  line-height: 1.6;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.lessonGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.lessonGrid span {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.8rem 0.95rem;
+  background: var(--ifm-background-surface-color);
+  font-weight: 700;
+}
+
+.ctaBand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.ctaBand h2,
+.ctaBand p {
+  margin: 0;
+}
+
+.ctaBand h2 {
+  margin-bottom: 0.4rem;
+}
+
 @media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+  .hero {
+    padding: 3rem 0;
+  }
+
+  .heroGrid,
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .courseGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media screen and (max-width: 640px) {
+  .heroTitle {
+    font-size: 3.2rem;
+  }
+
+  .courseGrid,
+  .lessonGrid,
+  .trace {
+    grid-template-columns: 1fr;
+  }
+
+  .arrayRow {
+    gap: 0.4rem;
+    padding: 1rem;
+  }
+
+  .arrayCell {
+    min-height: 2.8rem;
+    font-size: 0.9rem;
+  }
+
+  .ctaBand {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 }

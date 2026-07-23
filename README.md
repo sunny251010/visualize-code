@@ -1,6 +1,8 @@
-# Website
+# Visualize Code
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Visualize Code là website học lập trình bằng tiếng Việt, tập trung vào giải thích trực quan, lộ trình học rõ ràng và nội dung có thể học mà không cần đăng nhập.
+
+Nền tảng hiện tại dùng [Docusaurus](https://docusaurus.io/) và React.
 
 ## Installation
 
@@ -8,36 +10,35 @@ This website is built using [Docusaurus](https://docusaurus.io/), a modern stati
 npm install
 ```
 
-**Note**: feel free to use the package manager of your choice.
-
 ## Local Development
 
 ```bash
-npm run start
+npm.cmd run start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Trên Windows PowerShell, dùng `npm.cmd` nếu `npm` bị chặn bởi Execution Policy.
 
 ## Build
 
 ```bash
-npm run build
+npm.cmd run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+Lệnh này tạo static site trong thư mục `build/`.
 
-## Deployment
+## GitHub Pages
 
-Using SSH:
+Repo đang cấu hình GitHub Pages với:
+
+- `url: https://sunny251010.github.io`
+- `baseUrl: /visualize-code/`
+- `organizationName: sunny251010`
+- `projectName: visualize-code`
+
+Deploy bằng Docusaurus:
 
 ```bash
-USE_SSH=true npm run deploy
+npm.cmd run deploy
 ```
 
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> npm run deploy
-```
-
-If you are using GitHub Pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+Lệnh deploy sẽ build site và đẩy nội dung lên nhánh `gh-pages`.

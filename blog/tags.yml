@@ -1,19 +1,24 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+visualize-code:
+  label: Visualize Code
+  permalink: /visualize-code
+  description: Tin tức và ghi chú phát triển Visualize Code.
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+dsa:
+  label: DSA
+  permalink: /dsa
+  description: Cấu trúc dữ liệu và giải thuật.
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+python:
+  label: Python
+  permalink: /python
+  description: Nội dung học Python.
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+cpp:
+  label: C++
+  permalink: /cpp
+  description: Nội dung học C++.
+
+oop:
+  label: OOP
+  permalink: /oop
+  description: Lập trình hướng đối tượng.
