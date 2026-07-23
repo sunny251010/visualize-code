@@ -345,7 +345,7 @@ Kết quả cần có:
 
 Mục tiêu:
 
-- Tạo nền tảng animation tái sử dụng được cho nhiều thuật toán.
+- Xây dựng Animation Framework dùng chung cho toàn bộ website, có thể tái sử dụng giữa các bài học và các khóa học, đảm bảo thống nhất về màu sắc, phong cách hiển thị và trải nghiệm người dùng.
 
 Task:
 
