@@ -110,7 +110,7 @@ export const courses = [
         lesson('lists', 'lists', 'Lists', 'List và thao tác phổ biến.', 7),
         lesson('dictionary', 'dictionary', 'Dictionary', 'Key-value trong Python.', 8),
         lesson('oop', 'oop', 'OOP', 'Lập trình hướng đối tượng trong Python.', 9),
-        lesson('files', 'files', 'Files', 'Đọc ghi file.', 10),
+        lesson('files', 'files', 'Files', 'Đọc ghi file trong Python bằng with open.', 10),
         lesson('projects', 'projects', 'Projects', 'Bài tập dự án nhỏ.', 11),
       ]),
     ],

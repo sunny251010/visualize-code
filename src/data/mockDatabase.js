@@ -2,6 +2,12 @@ import {
   fibonacciQuizQuestions,
   fibonacciVideo,
 } from './fibonacciContent';
+import {
+  pythonFilesFrames,
+  pythonFilesQuizQuestions,
+  pythonFilesTranslation,
+  pythonFilesVideo,
+} from './pythonFilesContent';
 
 export const mockCourses = [
   {
@@ -13,6 +19,15 @@ export const mockCourses = [
     order: 1,
     isPublished: true,
   },
+  {
+    id: 'course_python',
+    slug: 'python',
+    title: 'Python',
+    description: 'Lộ trình Python cơ bản cho người mới học lập trình.',
+    icon: 'PY',
+    order: 2,
+    isPublished: true,
+  },
 ];
 
 export const mockSections = [
@@ -21,6 +36,14 @@ export const mockSections = [
     courseId: 'course_dsa',
     slug: 'dynamic-programming',
     title: 'Dynamic Programming',
+    order: 2,
+    isPublished: true,
+  },
+  {
+    id: 'section_python_core',
+    courseId: 'course_python',
+    slug: 'python-core',
+    title: 'Python Core',
     order: 2,
     isPublished: true,
   },
@@ -39,9 +62,99 @@ export const mockLessons = [
     canonicalPath: '/courses/dsa/fibonacci',
     isPublished: true,
   },
+  {
+    id: 'lesson_python_files',
+    slug: 'files',
+    courseId: 'course_python',
+    sectionId: 'section_python_core',
+    order: 10,
+    difficulty: 'beginner',
+    estimatedTime: 28,
+    tags: ['python', 'files', 'with-open', 'io'],
+    canonicalPath: '/courses/python/files',
+    isPublished: true,
+  },
 ];
 
 export const mockLessonTranslations = [
+  {
+    id: 'translation_python_files_vi',
+    lessonId: 'lesson_python_files',
+    language: 'vi',
+    title: pythonFilesTranslation.title,
+    description: pythonFilesTranslation.description,
+    learningObjectives: pythonFilesTranslation.learningObjectives,
+    prerequisites: pythonFilesTranslation.prerequisites,
+    video: pythonFilesVideo,
+    theoryBlocks: [
+      {
+        id: 'definition',
+        type: 'paragraph',
+        content:
+          'File giúp chương trình lưu dữ liệu sau khi chương trình kết thúc. Trong Python, with open là cách gọn và an toàn để mở, đọc, ghi và tự động đóng file.',
+      },
+      {
+        id: 'modes',
+        type: 'list',
+        items: [
+          '`r`: đọc file đã tồn tại',
+          '`w`: ghi file mới và ghi đè nội dung cũ nếu file đã tồn tại',
+          '`a`: thêm nội dung vào cuối file',
+          '`encoding="utf-8"`: đọc ghi tiếng Việt ổn định',
+        ],
+      },
+    ],
+    visualization: {
+      type: 'python-file-io',
+      title: 'Mô phỏng đọc ghi file',
+      frames: pythonFilesFrames,
+    },
+    codeExamples: [
+      {
+        id: 'python-with-open',
+        language: 'python',
+        title: 'Python',
+        code: `with open('notes.txt', 'w', encoding='utf-8') as file:
+    file.write('Xin chào Python\\n')
+
+with open('notes.txt', 'a', encoding='utf-8') as file:
+    file.write('Học file với with open\\n')
+
+with open('notes.txt', 'r', encoding='utf-8') as file:
+    content = file.read()
+
+print(content)`,
+      },
+    ],
+    programOutput: {
+      type: 'text',
+      value: `Xin chào Python
+Học file với with open`,
+    },
+    complexity: {
+      time: 'O(n)',
+      space: 'O(n)',
+      explanation: 'Nếu đọc toàn bộ file có n ký tự vào biến, thời gian và bộ nhớ đều phụ thuộc vào n.',
+    },
+    commonMistakes: [
+      'Dùng mode w khi muốn thêm dòng, làm mất nội dung cũ.',
+      'Quên ký tự xuống dòng \\n.',
+      'Không dùng encoding utf-8 khi file có tiếng Việt.',
+    ],
+    exercises: [
+      'Tạo file todo.txt và ghi 3 việc cần làm.',
+      'Đọc file todo.txt và in từng dòng kèm số thứ tự.',
+      'Dùng mode a để thêm một việc mới vào cuối file.',
+    ],
+    quiz: {
+      type: 'multiple-choice',
+      questions: pythonFilesQuizQuestions,
+    },
+    summary: [
+      'Làm việc với file gồm mở file đúng mode, đọc/ghi dữ liệu, và đóng file.',
+      'with open là cách nên dùng vì file được đóng tự động sau khi xử lý xong.',
+    ],
+  },
   {
     id: 'translation_dsa_fibonacci_bottom_up_vi',
     lessonId: 'lesson_dsa_fibonacci_bottom_up',

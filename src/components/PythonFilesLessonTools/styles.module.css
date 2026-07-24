@@ -1,0 +1,95 @@
+.fileLayout {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.filePanel,
+.statePanel {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--vc-surface);
+}
+
+.fileHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--vc-border);
+  padding: 0.75rem 0.9rem;
+  color: var(--ifm-font-color-base);
+  font-weight: 800;
+}
+
+.fileHeader strong {
+  border: 1px solid rgba(14, 165, 233, 0.28);
+  border-radius: 999px;
+  padding: 0.25rem 0.55rem;
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.78rem;
+}
+
+.filePaper {
+  min-height: 14rem;
+  margin: 0;
+  padding: 1rem;
+  background:
+    linear-gradient(to bottom, transparent 95%, rgba(14, 165, 233, 0.08) 95%),
+    var(--ifm-background-surface-color);
+  background-size: 100% 2rem;
+  color: var(--ifm-font-color-base);
+  font-family: var(--ifm-font-family-monospace);
+  line-height: 2rem;
+  white-space: pre-wrap;
+}
+
+.statePanel {
+  padding: 1rem;
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.statusGrid div {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.7rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.statusGrid span,
+.statusGrid strong {
+  display: block;
+}
+
+.statusGrid span {
+  color: var(--vc-text-muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.statusGrid strong {
+  margin-top: 0.15rem;
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.98rem;
+  white-space: pre-wrap;
+}
+
+.statePanel p {
+  margin: 1rem 0 0;
+  color: var(--vc-text-muted);
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 760px) {
+  .fileLayout,
+  .statusGrid {
+    grid-template-columns: 1fr;
+  }
+}
