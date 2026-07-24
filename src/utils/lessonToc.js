@@ -1,4 +1,17 @@
-export function getTranslatedToc(toc, frontMatter, t) {
+import {lessonService} from '@site/src/services/lessonService';
+
+export function getTranslatedToc(toc, frontMatter, t, language) {
+  if (frontMatter.lessonId) {
+    const lessonToc = lessonService.getLessonToc({
+      lessonId: frontMatter.lessonId,
+      language,
+    });
+
+    if (lessonToc.length > 0) {
+      return lessonToc;
+    }
+  }
+
   const sourceToc =
     frontMatter.lessonToc?.length > 0 ? frontMatter.lessonToc : toc;
 
@@ -9,5 +22,5 @@ export function getTranslatedToc(toc, frontMatter, t) {
 }
 
 export function hasLessonToc(toc, frontMatter) {
-  return toc.length > 0 || frontMatter.lessonToc?.length > 0;
+  return Boolean(frontMatter.lessonId) || toc.length > 0 || frontMatter.lessonToc?.length > 0;
 }

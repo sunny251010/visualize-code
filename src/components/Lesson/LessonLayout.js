@@ -8,6 +8,7 @@ export default function LessonLayout({children, lessonData}) {
   const {frontMatter, metadata} = useDoc();
   const t = useTranslation();
   const lesson = normalizeLessonMetadata(frontMatter);
+  const lessonMetadata = lessonData?.lesson ?? lesson;
   const title =
     lessonData?.translation?.title ??
     (frontMatter.translationKey
@@ -35,14 +36,14 @@ export default function LessonLayout({children, lessonData}) {
           <p className={styles.description}>{description}</p>
         )}
         <div className={styles.metaGrid}>
-          <MetaItem label={t('lesson.difficulty')} value={formatDifficulty(lesson.difficulty, t)} />
+          <MetaItem label={t('lesson.difficulty')} value={formatDifficulty(lessonMetadata.difficulty, t)} />
           <MetaItem
             label={t('lesson.estimatedTime')}
-            value={lesson.estimatedTime ? `${lesson.estimatedTime} ${t('lesson.minutes')}` : t('lesson.notUpdated')}
+            value={lessonMetadata.estimatedTime ? `${lessonMetadata.estimatedTime} ${t('lesson.minutes')}` : t('lesson.notUpdated')}
           />
           <MetaItem
             label={t('lesson.tags')}
-            value={lesson.tags.length > 0 ? lesson.tags.join(', ') : t('lesson.noTags')}
+            value={lessonMetadata.tags?.length > 0 ? lessonMetadata.tags.join(', ') : t('lesson.noTags')}
           />
         </div>
       </header>

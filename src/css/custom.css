@@ -128,7 +128,16 @@
 
 @media (min-width: 997px) {
   .theme-doc-sidebar-container {
+    position: sticky !important;
     top: calc(var(--ifm-navbar-height) + 2.85rem) !important;
     height: calc(100vh - var(--ifm-navbar-height) - 2.85rem) !important;
+    align-self: flex-start;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .theme-doc-sidebar-menu {
+    max-height: 100%;
   }
 }

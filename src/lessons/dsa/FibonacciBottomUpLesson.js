@@ -1,5 +1,6 @@
 import CodeBlock from '@theme/CodeBlock';
 import LessonLayout, {
+  CodeTabs,
   LearningObjectives,
   Prerequisites,
   LessonVideo,
@@ -22,69 +23,76 @@ export default function FibonacciBottomUpLesson() {
     return null;
   }
 
-  const {translation} = pageData;
-
   return (
     <LessonLayout lessonData={pageData}>
-      <h2 id="learning-objectives">{sectionTitle('learningObjectives', language)}</h2>
-      <LearningObjectives items={translation.learningObjectives} />
-
-      <h2 id="prerequisites">{sectionTitle('prerequisites', language)}</h2>
-      <Prerequisites items={translation.prerequisites} />
-
-      <h2 id="lesson-video">{sectionTitle('lessonVideo', language)}</h2>
-      <LessonVideo />
-
-      <h2 id="theory">{sectionTitle('theory', language)}</h2>
-      <TheoryBlocks blocks={translation.theoryBlocks} />
-
-      <h2 id="visualization">{sectionTitle('visualization', language)}</h2>
-      <VisualizationPlaceholder title={translation.visualization?.title} />
-
-      <h2 id="code-example">{sectionTitle('codeExample', language)}</h2>
-      {translation.codeExamples.map((example) => (
-        <div key={example.id}>
-          <h3>{example.title}</h3>
-          <CodeBlock language={example.language}>{example.code}</CodeBlock>
-        </div>
-      ))}
-
-      <h2 id="program-output">{sectionTitle('programOutput', language)}</h2>
-      <ProgramOutputPlaceholder />
-      {translation.programOutput?.value && (
-        <CodeBlock language={translation.programOutput.type}>
-          {translation.programOutput.value}
-        </CodeBlock>
-      )}
-
-      <h2 id="complexity">{sectionTitle('complexity', language)}</h2>
-      <ComplexitySummary
-        time={translation.complexity?.time}
-        space={translation.complexity?.space}
-      />
-      {translation.complexity?.explanation && (
-        <p>{renderInlineCode(translation.complexity.explanation)}</p>
-      )}
-
-      <h2 id="common-mistakes">{sectionTitle('commonMistakes', language)}</h2>
-      <ul>
-        {translation.commonMistakes.map((mistake) => (
-          <li key={mistake}>{renderInlineCode(mistake)}</li>
-        ))}
-      </ul>
-
-      <h2 id="quiz">{sectionTitle('quiz', language)}</h2>
-      <QuizPlaceholder />
-
-      <h2 id="practice">{sectionTitle('practice', language)}</h2>
-      <PracticeList items={translation.exercises} />
-
-      <h2 id="summary">{sectionTitle('summary', language)}</h2>
-      {translation.summary.map((paragraph) => (
-        <p key={paragraph}>{renderInlineCode(paragraph)}</p>
+      {pageData.sections.map((section) => (
+        <LessonSection key={section.id} section={section} />
       ))}
     </LessonLayout>
   );
+}
+
+function LessonSection({section}) {
+  return (
+    <section>
+      <h2 id={section.id}>{section.title}</h2>
+      <LessonSectionContent section={section} />
+    </section>
+  );
+}
+
+function LessonSectionContent({section}) {
+  const {content} = section;
+
+  if (section.type === 'learningObjectives') {
+    return <LearningObjectives items={content} />;
+  }
+
+  if (section.type === 'prerequisites') {
+    return <Prerequisites items={content} />;
+  }
+
+  if (section.type === 'lessonVideo') {
+    return <LessonVideo video={content} />;
+  }
+
+  if (section.type === 'theory') {
+    return <TheoryBlocks blocks={content ?? []} />;
+  }
+
+  if (section.type === 'visualization') {
+    return <VisualizationPlaceholder title={content?.title} />;
+  }
+
+  if (section.type === 'codeExamples') {
+    return <CodeExamples examples={content ?? []} />;
+  }
+
+  if (section.type === 'programOutput') {
+    return <ProgramOutput output={content} />;
+  }
+
+  if (section.type === 'complexity') {
+    return <Complexity content={content} />;
+  }
+
+  if (section.type === 'commonMistakes') {
+    return <InlineList items={content ?? []} />;
+  }
+
+  if (section.type === 'quiz') {
+    return <QuizPlaceholder quiz={content} />;
+  }
+
+  if (section.type === 'practice') {
+    return <PracticeList items={content} />;
+  }
+
+  if (section.type === 'summary') {
+    return <ParagraphList items={content ?? []} />;
+  }
+
+  return null;
 }
 
 function TheoryBlocks({blocks}) {
@@ -119,6 +127,57 @@ function TheoryBlocks({blocks}) {
   );
 }
 
+function CodeExamples({examples}) {
+  return <CodeTabs languages={examples} />;
+}
+
+function ProgramOutput({output}) {
+  return (
+    <>
+      <ProgramOutputPlaceholder />
+      {output?.value && (
+        <CodeBlock language={output.type}>
+          {output.value}
+        </CodeBlock>
+      )}
+    </>
+  );
+}
+
+function Complexity({content}) {
+  return (
+    <>
+      <ComplexitySummary
+        time={content?.time}
+        space={content?.space}
+      />
+      {content?.explanation && (
+        <p>{renderInlineCode(content.explanation)}</p>
+      )}
+    </>
+  );
+}
+
+function InlineList({items}) {
+  return (
+    <ul>
+      {items.map((item) => (
+        <li key={item}>{renderInlineCode(item)}</li>
+      ))}
+    </ul>
+  );
+}
+
+function ParagraphList({items}) {
+  return (
+    <>
+      {items.map((item) => (
+        <p key={item}>{renderInlineCode(item)}</p>
+      ))}
+    </>
+  );
+}
+
 function renderInlineCode(text) {
   return text.split(/(`[^`]+`)/g).map((part) => {
     if (part.startsWith('`') && part.endsWith('`')) {
@@ -127,39 +186,4 @@ function renderInlineCode(text) {
 
     return part;
   });
-}
-
-function sectionTitle(sectionId, language) {
-  const titles = {
-    vi: {
-      learningObjectives: 'Mục tiêu học tập',
-      prerequisites: 'Kiến thức cần có',
-      lessonVideo: 'Video bài học',
-      theory: 'Lý thuyết',
-      visualization: 'Trực quan hóa',
-      codeExample: 'Ví dụ code',
-      programOutput: 'Kết quả chương trình',
-      complexity: 'Độ phức tạp',
-      commonMistakes: 'Lỗi thường gặp',
-      quiz: 'Quiz',
-      practice: 'Luyện tập',
-      summary: 'Tóm tắt',
-    },
-    en: {
-      learningObjectives: 'Learning Objectives',
-      prerequisites: 'Prerequisites',
-      lessonVideo: 'Lesson Video',
-      theory: 'Theory',
-      visualization: 'Visualization',
-      codeExample: 'Code Example',
-      programOutput: 'Program Output',
-      complexity: 'Complexity',
-      commonMistakes: 'Common Mistakes',
-      quiz: 'Quiz',
-      practice: 'Practice',
-      summary: 'Summary',
-    },
-  };
-
-  return titles[language]?.[sectionId] ?? titles.vi[sectionId];
 }
