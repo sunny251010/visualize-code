@@ -1,4 +1,7 @@
 .wrapper {
+  position: sticky;
+  top: var(--ifm-navbar-height);
+  z-index: 199;
   width: 100%;
   border-top: 1px solid rgba(186, 230, 253, 0.6);
   border-bottom: 1px solid rgba(15, 23, 42, 0.08);

@@ -17,6 +17,11 @@
   --ifm-background-surface-color: #ffffff;
   --ifm-heading-font-weight: 800;
   --ifm-navbar-height: 4.75rem;
+  --vc-navbar-padding-top: calc(var(--ifm-navbar-padding-vertical) * 0.5);
+  --vc-navbar-padding-bottom: var(--ifm-navbar-padding-vertical);
+  --vc-navbar-content-height: calc(
+    var(--ifm-navbar-height) - var(--vc-navbar-padding-top) - var(--vc-navbar-padding-bottom)
+  );
   --vc-course-nav-height: 2.2rem;
   --ifm-code-font-size: 95%;
   --ifm-global-radius: 8px;
@@ -44,23 +49,25 @@
 }
 
 .navbar {
+  padding-top: var(--vc-navbar-padding-top);
+  padding-bottom: var(--vc-navbar-padding-bottom);
   border-bottom: 1px solid var(--vc-border);
   box-shadow: none;
 }
 
 .navbar__inner {
   align-items: center;
-  min-height: var(--ifm-navbar-height);
+  min-height: var(--vc-navbar-content-height);
 }
 
 .navbar__items {
   align-items: center;
-  height: var(--ifm-navbar-height);
+  height: var(--vc-navbar-content-height);
 }
 
 .navbar__brand {
   align-items: center;
-  height: var(--ifm-navbar-height);
+  height: var(--vc-navbar-content-height);
   margin-right: 1.25rem;
 }
 
@@ -77,13 +84,13 @@
 .navbar__item {
   display: inline-flex;
   align-items: center;
-  height: var(--ifm-navbar-height);
+  height: var(--vc-navbar-content-height);
 }
 
 .navbar__link {
   display: inline-flex;
   align-items: center;
-  height: var(--ifm-navbar-height);
+  height: var(--vc-navbar-content-height);
   padding-right: 0.95rem;
   padding-left: 0.95rem;
   font-weight: 850;
