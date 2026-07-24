@@ -3,6 +3,11 @@ export const pythonFilesVideo = {
   title: 'Video minh họa bài File trong Python',
 };
 
+const pythonFilesVideoTitles = {
+  vi: 'Video minh họa bài File trong Python',
+  en: 'Python Files lesson video',
+};
+
 export const pythonFilesLessonRecord = {
   id: 'lesson_python_files',
   courseId: 'course_python',
@@ -16,24 +21,33 @@ export const pythonFilesLessonRecord = {
   quizType: 'multiple-choice',
 };
 
-export const pythonFilesTranslation = {
-  language: 'vi',
-  title: 'File trong Python',
-  description: 'Học cách mở, đọc, ghi và đóng file trong Python bằng with open.',
-  learningObjectives: [
-    'Hiểu file là nơi lưu dữ liệu bên ngoài chương trình.',
-    'Phân biệt các mode r, w, a khi mở file.',
-    'Biết dùng with open để file được đóng tự động.',
-    'Đọc và ghi được file text có tiếng Việt bằng encoding utf-8.',
-  ],
-  prerequisites: [
-    'Biết biến và chuỗi trong Python.',
-    'Biết hàm print và cách gọi hàm.',
-    'Biết khối lệnh thụt lề trong Python.',
-  ],
-};
+const pythonFilesCodeLinesVi = [
+  "with open('notes.txt', 'w', encoding='utf-8') as file:",
+  "    file.write('Xin chào Python\\n')",
+  '',
+  "with open('notes.txt', 'a', encoding='utf-8') as file:",
+  "    file.write('Học file với with open\\n')",
+  '',
+  "with open('notes.txt', 'r', encoding='utf-8') as file:",
+  '    content = file.read()',
+  '',
+  'print(content)',
+];
 
-export const pythonFilesFrames = [
+const pythonFilesCodeLinesEn = [
+  "with open('notes.txt', 'w', encoding='utf-8') as file:",
+  "    file.write('Hello Python\\n')",
+  '',
+  "with open('notes.txt', 'a', encoding='utf-8') as file:",
+  "    file.write('Learning files with with open\\n')",
+  '',
+  "with open('notes.txt', 'r', encoding='utf-8') as file:",
+  '    content = file.read()',
+  '',
+  'print(content)',
+];
+
+export const pythonFilesFramesVi = [
   {
     id: 'open-write',
     order: 1,
@@ -144,20 +158,118 @@ export const pythonFilesFrames = [
   },
 ];
 
-export const pythonFilesCodeLines = [
-  "with open('notes.txt', 'w', encoding='utf-8') as file:",
-  "    file.write('Xin chào Python\\n')",
-  '',
-  "with open('notes.txt', 'a', encoding='utf-8') as file:",
-  "    file.write('Học file với with open\\n')",
-  '',
-  "with open('notes.txt', 'r', encoding='utf-8') as file:",
-  '    content = file.read()',
-  '',
-  'print(content)',
+export const pythonFilesFramesEn = [
+  {
+    id: 'open-write',
+    order: 1,
+    action: 'open',
+    line: 1,
+    mode: 'w',
+    status: 'Open file',
+    pointer: 'Start of file',
+    disk: '',
+    buffer: '',
+    note: 'Open notes.txt in w mode. If the file does not exist, Python creates it. If it already exists, the old content is overwritten.',
+  },
+  {
+    id: 'write-first-line',
+    order: 2,
+    action: 'write',
+    line: 2,
+    mode: 'w',
+    status: 'Write buffer',
+    pointer: 'End of line 1',
+    disk: '',
+    buffer: 'Hello Python\\n',
+    note: 'write() places the string into the write buffer. The \\n character creates a new line in the file.',
+  },
+  {
+    id: 'close-write',
+    order: 3,
+    action: 'close',
+    line: 2,
+    mode: 'w',
+    status: 'Close file',
+    pointer: 'End of file',
+    disk: 'Hello Python\\n',
+    buffer: '',
+    note: 'When the with block ends, the file is closed automatically and the content is flushed to disk.',
+  },
+  {
+    id: 'open-append',
+    order: 4,
+    action: 'open',
+    line: 4,
+    mode: 'a',
+    status: 'Open for append',
+    pointer: 'End of file',
+    disk: 'Hello Python\\n',
+    buffer: '',
+    note: 'Open the file in a mode to add new content at the end without deleting the existing content.',
+  },
+  {
+    id: 'append-line',
+    order: 5,
+    action: 'append',
+    line: 5,
+    mode: 'a',
+    status: 'Append line',
+    pointer: 'End of line 2',
+    disk: 'Hello Python\\n',
+    buffer: 'Learning files with with open\\n',
+    note: 'The new line is appended after the existing content.',
+  },
+  {
+    id: 'close-append',
+    order: 6,
+    action: 'close',
+    line: 5,
+    mode: 'a',
+    status: 'Close file',
+    pointer: 'End of file',
+    disk: 'Hello Python\\nLearning files with with open\\n',
+    buffer: '',
+    note: 'After the file is closed, both lines are stored in notes.txt.',
+  },
+  {
+    id: 'open-read',
+    order: 7,
+    action: 'open',
+    line: 7,
+    mode: 'r',
+    status: 'Open for read',
+    pointer: 'Start of file',
+    disk: 'Hello Python\\nLearning files with with open\\n',
+    buffer: '',
+    note: 'Open the file in r mode to read it. The read pointer starts at the beginning of the file.',
+  },
+  {
+    id: 'read-content',
+    order: 8,
+    action: 'read',
+    line: 8,
+    mode: 'r',
+    status: 'Read all',
+    pointer: 'End of file',
+    disk: 'Hello Python\\nLearning files with with open\\n',
+    buffer: 'Hello Python\\nLearning files with with open\\n',
+    note: 'read() loads the full file content into content and moves the read pointer to the end.',
+  },
+  {
+    id: 'print-content',
+    order: 9,
+    action: 'print',
+    line: 10,
+    mode: 'r',
+    status: 'Print result',
+    pointer: 'End of file',
+    disk: 'Hello Python\\nLearning files with with open\\n',
+    buffer: 'Hello Python\\nLearning files with with open\\n',
+    note: 'print(content) displays the exact content read from the file.',
+  },
 ];
 
-export const pythonFilesQuizQuestions = [
+export const pythonFilesQuizQuestionsVi = [
   {
     id: 'with-open',
     question: 'Vì sao nên dùng with open khi làm việc với file?',
@@ -202,3 +314,273 @@ export const pythonFilesQuizQuestions = [
     explanation: 'utf-8 giúp đọc ghi tiếng Việt và nhiều ký tự Unicode ổn định hơn giữa các máy.',
   },
 ];
+
+export const pythonFilesQuizQuestionsEn = [
+  {
+    id: 'with-open',
+    question: 'Why should you use with open when working with files?',
+    options: [
+      'The file is closed automatically after leaving the with block',
+      'The file is always converted into JSON',
+      'Python automatically fixes spelling mistakes in the file',
+      'It only works when reading images',
+    ],
+    answerIndex: 0,
+    explanation: 'with open creates a context manager. When the block ends, the file is closed automatically, even if an error happens.',
+  },
+  {
+    id: 'write-mode',
+    question: 'What should you be careful about with "w" mode?',
+    options: [
+      'It overwrites old content if the file already exists',
+      'It only reads the file and never writes',
+      'It always appends to the end of the file',
+      'It only works with integers',
+    ],
+    answerIndex: 0,
+    explanation: 'w means write mode. If the file already has content, that old content is replaced by the new content.',
+  },
+  {
+    id: 'append-mode',
+    question: 'Which mode should you use to add content to the end of a file without deleting old content?',
+    options: ['r', 'w', 'a', 'x'],
+    answerIndex: 2,
+    explanation: 'a means append mode, which writes new content at the end of the file.',
+  },
+  {
+    id: 'encoding',
+    question: 'When is encoding="utf-8" useful?',
+    options: [
+      'When the file contains Vietnamese text or Unicode characters',
+      'When you want to turn a file into a folder',
+      'When you want to skip every line in the file',
+      'When you only want to calculate O(n) complexity',
+    ],
+    answerIndex: 0,
+    explanation: 'utf-8 helps Python read and write Vietnamese text and many Unicode characters consistently across machines.',
+  },
+];
+
+export const pythonFilesTranslations = {
+  vi: {
+    language: 'vi',
+    title: 'File trong Python',
+    description: 'Học cách mở, đọc, ghi và đóng file trong Python bằng with open.',
+    learningObjectives: [
+      'Hiểu file là nơi lưu dữ liệu bên ngoài chương trình.',
+      'Phân biệt các mode r, w, a khi mở file.',
+      'Biết dùng with open để file được đóng tự động.',
+      'Đọc và ghi được file text có tiếng Việt bằng encoding utf-8.',
+    ],
+    prerequisites: [
+      'Biết biến và chuỗi trong Python.',
+      'Biết hàm print và cách gọi hàm.',
+      'Biết khối lệnh thụt lề trong Python.',
+    ],
+    video: {
+      ...pythonFilesVideo,
+      title: pythonFilesVideoTitles.vi,
+    },
+    theoryBlocks: [
+      {
+        id: 'definition',
+        type: 'paragraph',
+        content:
+          'File giúp chương trình lưu dữ liệu sau khi chương trình kết thúc. Ví dụ: lưu ghi chú, lưu điểm số, đọc cấu hình, hoặc xuất báo cáo.',
+      },
+      {
+        id: 'with-open',
+        type: 'paragraph',
+        content:
+          'Trong Python, cách nên dùng nhất là `with open(...)`. Khối `with` sẽ tự động đóng file khi xử lý xong, giúp tránh quên `close()`.',
+      },
+      {
+        id: 'modes',
+        type: 'list',
+        items: [
+          '`r`: đọc file. File phải tồn tại.',
+          '`w`: ghi file mới. Nếu file đã có, nội dung cũ bị ghi đè.',
+          '`a`: thêm nội dung vào cuối file.',
+          '`encoding="utf-8"`: giúp đọc ghi tiếng Việt ổn định.',
+        ],
+      },
+    ],
+    visualization: {
+      type: 'python-file-io',
+      title: 'Mô phỏng đọc và ghi file',
+      frames: pythonFilesFramesVi,
+      codeLines: pythonFilesCodeLinesVi,
+      labels: {
+        step: 'Bước',
+        emptyFile: 'File đang rỗng',
+        status: 'Trạng thái',
+        pointer: 'Con trỏ',
+        buffer: 'Buffer',
+        description: 'File trong Python nên được mở bằng `with open(...)` để đọc, ghi và đóng file an toàn.',
+        reset: 'Reset',
+        previous: 'Trước',
+        play: 'Chạy',
+        pause: 'Dừng',
+        next: 'Sau',
+      },
+    },
+    codeExamples: [
+      {
+        id: 'python-with-open',
+        language: 'python',
+        title: 'Python',
+        code: pythonFilesCodeLinesVi.join('\n'),
+      },
+    ],
+    programOutput: {
+      type: 'text',
+      value: 'Xin chào Python\nHọc file với with open',
+    },
+    complexity: {
+      time: 'O(n)',
+      space: 'O(n)',
+      explanation:
+        'Nếu file có `n` ký tự, `read()` cần đọc qua `n` ký tự nên thời gian là `O(n)`. Khi đọc toàn bộ file vào biến, bộ nhớ cũng là `O(n)`.',
+    },
+    commonMistakes: [
+      'Dùng mode `w` khi muốn thêm dòng, làm mất nội dung cũ.',
+      'Quên thêm `\\n`, khiến các dòng bị dính liền nhau.',
+      'Không dùng `encoding="utf-8"` khi file có tiếng Việt.',
+      'Đọc file quá lớn bằng `read()` một lần thay vì đọc từng dòng.',
+    ],
+    exercises: [
+      'Tạo file todo.txt và ghi 3 việc cần làm, mỗi việc một dòng.',
+      'Đọc file todo.txt và in từng dòng kèm số thứ tự.',
+      'Dùng mode `a` để thêm một việc mới vào cuối file.',
+      'Viết chương trình đếm file có bao nhiêu dòng.',
+    ],
+    quiz: {
+      type: 'multiple-choice',
+      title: 'Kiểm tra bài File trong Python',
+      questions: pythonFilesQuizQuestionsVi,
+      labels: {
+        correct: 'Đúng.',
+        wrong: 'Chưa đúng.',
+        submit: 'Nộp bài',
+        retry: 'Làm lại',
+      },
+    },
+    summary: [
+      'Làm việc với file gồm ba ý chính: mở file đúng mode, đọc/ghi dữ liệu, và đóng file.',
+      '`with open` là cách gọn và an toàn nhất cho phần lớn trường hợp vì file được đóng tự động sau khi xử lý xong.',
+    ],
+  },
+  en: {
+    language: 'en',
+    title: 'Files in Python',
+    description: 'Learn how to open, read, write, and close files in Python with with open.',
+    learningObjectives: [
+      'Understand that files store data outside the running program.',
+      'Distinguish the r, w, and a modes when opening a file.',
+      'Use with open so files are closed automatically.',
+      'Read and write text files with Unicode content by using encoding utf-8.',
+    ],
+    prerequisites: [
+      'Know variables and strings in Python.',
+      'Know print and how to call functions.',
+      'Understand indented code blocks in Python.',
+    ],
+    video: {
+      ...pythonFilesVideo,
+      title: pythonFilesVideoTitles.en,
+    },
+    theoryBlocks: [
+      {
+        id: 'definition',
+        type: 'paragraph',
+        content:
+          'Files let a program keep data after the program has finished. Common examples include notes, scores, configuration, and generated reports.',
+      },
+      {
+        id: 'with-open',
+        type: 'paragraph',
+        content:
+          'In Python, the recommended pattern is `with open(...)`. The `with` block closes the file automatically after the work is done, so you do not forget `close()`.',
+      },
+      {
+        id: 'modes',
+        type: 'list',
+        items: [
+          '`r`: read an existing file.',
+          '`w`: write a new file. If the file already exists, old content is overwritten.',
+          '`a`: append content to the end of the file.',
+          '`encoding="utf-8"`: read and write Unicode text consistently.',
+        ],
+      },
+    ],
+    visualization: {
+      type: 'python-file-io',
+      title: 'Reading and writing files',
+      frames: pythonFilesFramesEn,
+      codeLines: pythonFilesCodeLinesEn,
+      labels: {
+        step: 'Step',
+        emptyFile: 'File is empty',
+        status: 'Status',
+        pointer: 'Pointer',
+        buffer: 'Buffer',
+        description: 'Python files should be opened with `with open(...)` so reading, writing, and closing happen safely.',
+        reset: 'Reset',
+        previous: 'Previous',
+        play: 'Play',
+        pause: 'Pause',
+        next: 'Next',
+      },
+    },
+    codeExamples: [
+      {
+        id: 'python-with-open',
+        language: 'python',
+        title: 'Python',
+        code: pythonFilesCodeLinesEn.join('\n'),
+      },
+    ],
+    programOutput: {
+      type: 'text',
+      value: 'Hello Python\nLearning files with with open',
+    },
+    complexity: {
+      time: 'O(n)',
+      space: 'O(n)',
+      explanation:
+        'If the file has `n` characters, `read()` must read those `n` characters, so the time complexity is `O(n)`. Reading the whole file into a variable also uses `O(n)` memory.',
+    },
+    commonMistakes: [
+      'Using `w` mode when you meant to append, which deletes old content.',
+      'Forgetting `\\n`, causing lines to run together.',
+      'Skipping `encoding="utf-8"` when the file contains Unicode text.',
+      'Reading a very large file with one `read()` call instead of reading line by line.',
+    ],
+    exercises: [
+      'Create todo.txt and write 3 tasks, one task per line.',
+      'Read todo.txt and print each line with its line number.',
+      'Use `a` mode to add one new task to the end of the file.',
+      'Write a program that counts how many lines a file has.',
+    ],
+    quiz: {
+      type: 'multiple-choice',
+      title: 'Check your Python Files understanding',
+      questions: pythonFilesQuizQuestionsEn,
+      labels: {
+        correct: 'Correct.',
+        wrong: 'Not quite.',
+        submit: 'Submit',
+        retry: 'Try again',
+      },
+    },
+    summary: [
+      'Working with files has three core steps: open the file in the right mode, read or write data, and close the file.',
+      '`with open` is the clean and safe default for most file work because Python closes the file automatically when the block finishes.',
+    ],
+  },
+};
+
+export const pythonFilesTranslation = pythonFilesTranslations.vi;
+export const pythonFilesFrames = pythonFilesFramesVi;
+export const pythonFilesCodeLines = pythonFilesCodeLinesVi;
+export const pythonFilesQuizQuestions = pythonFilesQuizQuestionsVi;

@@ -6,6 +6,7 @@ import {
   pythonFilesFrames,
   pythonFilesQuizQuestions,
   pythonFilesTranslation,
+  pythonFilesTranslations,
   pythonFilesVideo,
 } from './pythonFilesContent';
 
@@ -150,10 +151,18 @@ Học file với with open`,
       type: 'multiple-choice',
       questions: pythonFilesQuizQuestions,
     },
+    ...pythonFilesTranslations.vi,
     summary: [
       'Làm việc với file gồm mở file đúng mode, đọc/ghi dữ liệu, và đóng file.',
       'with open là cách nên dùng vì file được đóng tự động sau khi xử lý xong.',
     ],
+    ...pythonFilesTranslations.vi,
+  },
+  {
+    id: 'translation_python_files_en',
+    lessonId: 'lesson_python_files',
+    language: 'en',
+    ...pythonFilesTranslations.en,
   },
   {
     id: 'translation_dsa_fibonacci_bottom_up_vi',

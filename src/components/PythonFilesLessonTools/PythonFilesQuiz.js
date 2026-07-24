@@ -2,15 +2,24 @@ import {useMemo, useState} from 'react';
 import {pythonFilesQuizQuestions} from '@site/src/data/pythonFilesContent';
 import styles from '@site/src/components/FibonacciLessonTools/styles.module.css';
 
-export default function PythonFilesQuiz() {
+const fallbackLabels = {
+  correct: 'Đúng.',
+  wrong: 'Chưa đúng.',
+  submit: 'Nộp bài',
+  retry: 'Làm lại',
+};
+
+export default function PythonFilesQuiz({quiz}) {
+  const questions = quiz?.questions ?? pythonFilesQuizQuestions;
+  const labels = quiz?.labels ?? fallbackLabels;
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const score = useMemo(
     () =>
-      pythonFilesQuizQuestions.reduce((total, question) => {
+      questions.reduce((total, question) => {
         return total + (answers[question.id] === question.answerIndex ? 1 : 0);
       }, 0),
-    [answers],
+    [answers, questions],
   );
 
   return (
@@ -18,15 +27,15 @@ export default function PythonFilesQuiz() {
       <div className={styles.toolHeader}>
         <div>
           <span className={styles.eyebrow}>Quiz Python Files</span>
-          <h3>Kiểm tra bài File trong Python</h3>
+          <h3>{quiz?.title ?? 'Kiểm tra bài File trong Python'}</h3>
         </div>
         <div className={styles.stepBadge}>
-          {submitted ? `${score}/${pythonFilesQuizQuestions.length}` : `${Object.keys(answers).length}/${pythonFilesQuizQuestions.length}`}
+          {submitted ? `${score}/${questions.length}` : `${Object.keys(answers).length}/${questions.length}`}
         </div>
       </div>
 
       <div className={styles.questionList}>
-        {pythonFilesQuizQuestions.map((question, questionIndex) => {
+        {questions.map((question, questionIndex) => {
           const selectedAnswer = answers[question.id];
           const isCorrect = selectedAnswer === question.answerIndex;
 
@@ -63,7 +72,7 @@ export default function PythonFilesQuiz() {
               </div>
               {submitted && (
                 <p className={isCorrect ? styles.feedbackGood : styles.feedbackBad}>
-                  {isCorrect ? 'Đúng.' : 'Chưa đúng.'} {question.explanation}
+                  {isCorrect ? labels.correct : labels.wrong} {question.explanation}
                 </p>
               )}
             </fieldset>
@@ -73,7 +82,7 @@ export default function PythonFilesQuiz() {
 
       <div className={styles.quizActions}>
         <button type="button" onClick={() => setSubmitted(true)}>
-          Nộp bài
+          {labels.submit}
         </button>
         <button
           type="button"
@@ -81,7 +90,7 @@ export default function PythonFilesQuiz() {
             setAnswers({});
             setSubmitted(false);
           }}>
-          Làm lại
+          {labels.retry}
         </button>
       </div>
     </div>
