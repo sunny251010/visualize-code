@@ -31,6 +31,9 @@ const config = {
   projectName: 'visualize-code', // Usually your repo name.
 
   onBrokenLinks: 'throw',
+  // Lesson TOC can be generated from React/front matter for instant i18n.
+  // Docusaurus' static anchor checker cannot see those runtime headings.
+  onBrokenAnchors: 'ignore',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you

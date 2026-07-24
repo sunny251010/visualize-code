@@ -1,0 +1,10 @@
+.docsWrapper {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+}
+
+.docRoot {
+  display: flex;
+  width: 100%;
+}

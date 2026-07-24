@@ -115,3 +115,20 @@
 .breadcrumbs__link {
   border-radius: 8px;
 }
+
+.theme-doc-markdown h2,
+.theme-doc-markdown h3 {
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 4.25rem);
+}
+
+.theme-doc-toc-desktop {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 3.5rem);
+}
+
+@media (min-width: 997px) {
+  .theme-doc-sidebar-container {
+    top: calc(var(--ifm-navbar-height) + 2.85rem) !important;
+    height: calc(100vh - var(--ifm-navbar-height) - 2.85rem) !important;
+  }
+}

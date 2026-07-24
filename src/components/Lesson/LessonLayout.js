@@ -4,23 +4,29 @@ import {normalizeLessonMetadata} from '@site/src/data/lessonMetadata';
 import {useTranslation} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
-export default function LessonLayout({children}) {
+export default function LessonLayout({children, lessonData}) {
   const {frontMatter, metadata} = useDoc();
   const t = useTranslation();
   const lesson = normalizeLessonMetadata(frontMatter);
-  const title = frontMatter.translationKey
-    ? t(`${frontMatter.translationKey}.title`, lesson.title ?? metadata.title)
-    : lesson.title ?? metadata.title;
-  const description = frontMatter.translationKey
-    ? t(`${frontMatter.translationKey}.description`, lesson.description)
-    : lesson.description;
+  const title =
+    lessonData?.translation?.title ??
+    (frontMatter.translationKey
+      ? t(`${frontMatter.translationKey}.title`, lesson.title ?? metadata.title)
+      : lesson.title ?? metadata.title);
+  const description =
+    lessonData?.translation?.description ??
+    (frontMatter.translationKey
+      ? t(`${frontMatter.translationKey}.description`, lesson.description)
+      : lesson.description);
 
   return (
     <article className={styles.lesson}>
       <header className={styles.header}>
         <div className={styles.kicker}>
-          <span>{formatCourse(lesson.course)}</span>
-          {lesson.topic && <span>{formatTopic(lesson.topic, t)}</span>}
+          <span>{formatCourse(lessonData?.course?.slug ?? lesson.course)}</span>
+          {(lessonData?.section?.slug ?? lesson.topic) && (
+            <span>{formatTopic(lessonData?.section?.slug ?? lesson.topic, t)}</span>
+          )}
         </div>
         <Heading as="h1" className={styles.title}>
           {title}
