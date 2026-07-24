@@ -1,0 +1,179 @@
+.lesson {
+  max-width: 100%;
+}
+
+.header {
+  margin-bottom: 2rem;
+  padding: 1.4rem;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.kicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.kicker span {
+  border: 1px solid var(--vc-border);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  color: var(--ifm-color-primary-darker);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.title {
+  margin-bottom: 0.75rem;
+}
+
+.description {
+  max-width: 760px;
+  margin: 0;
+  color: var(--vc-text-muted);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.metaGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.metaItem {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  background: var(--vc-surface);
+}
+
+.metaItem span,
+.metaItem strong {
+  display: block;
+}
+
+.metaItem span {
+  margin-bottom: 0.25rem;
+  color: var(--vc-text-muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.metaItem strong {
+  color: var(--ifm-font-color-base);
+  font-size: 0.95rem;
+}
+
+.body h2 {
+  margin-top: 2.2rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--vc-border);
+}
+
+.checklist {
+  display: grid;
+  gap: 0.5rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.checklist li {
+  position: relative;
+  padding-left: 1.6rem;
+}
+
+.checklist li::before {
+  position: absolute;
+  left: 0;
+  color: var(--ifm-color-primary);
+  content: "✓";
+  font-weight: 900;
+}
+
+.muted {
+  color: var(--vc-text-muted);
+}
+
+.videoFrame {
+  overflow: hidden;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  background: var(--vc-surface);
+}
+
+.videoFrame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.placeholder {
+  border: 1px dashed var(--vc-border);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--vc-surface);
+}
+
+.placeholder strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--ifm-color-primary-darkest);
+}
+
+.placeholder p {
+  margin: 0;
+  color: var(--vc-text-muted);
+}
+
+.complexityGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.complexityGrid div {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.complexityGrid span,
+.complexityGrid strong {
+  display: block;
+}
+
+.complexityGrid span {
+  margin-bottom: 0.25rem;
+  color: var(--vc-text-muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.complexityGrid strong {
+  font-size: 1.25rem;
+}
+
+.practiceList {
+  display: grid;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 1rem;
+  }
+
+  .metaGrid,
+  .complexityGrid {
+    grid-template-columns: 1fr;
+  }
+}

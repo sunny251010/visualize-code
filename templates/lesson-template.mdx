@@ -1,0 +1,97 @@
+---
+title: Lesson Title
+description: Mô tả ngắn gọn cho SEO, search và course overview.
+slug: /courses/course-slug/lesson-slug
+course: course-slug
+topic: topic-slug
+difficulty: beginner
+estimatedTime: 20
+prerequisites:
+  - Prerequisite 1
+tags:
+  - tag-1
+order: 1
+# video:
+#   youtubeId: VIDEO_ID
+#   title: Lesson video title
+---
+
+import LessonLayout, {
+  LearningObjectives,
+  Prerequisites,
+  LessonVideo,
+  VisualizationPlaceholder,
+  ProgramOutputPlaceholder,
+  ComplexitySummary,
+  QuizPlaceholder,
+  PracticeList,
+} from '@site/src/components/Lesson';
+
+<LessonLayout>
+
+## Learning Objectives
+
+<LearningObjectives
+  items={[
+    'Mục tiêu học tập thứ nhất.',
+    'Mục tiêu học tập thứ hai.',
+  ]}
+/>
+
+## Prerequisites
+
+<Prerequisites />
+
+## Lesson Video
+
+<LessonVideo />
+
+## Theory
+
+Viết phần lý thuyết chính của bài học tại đây.
+
+## Visualization
+
+<VisualizationPlaceholder />
+
+## Code Example
+
+```cpp
+// C++ example
+```
+
+```python
+# Python example
+```
+
+## Program Output
+
+<ProgramOutputPlaceholder />
+
+## Complexity
+
+<ComplexitySummary time="O(n)" space="O(1)" />
+
+## Common Mistakes
+
+- Lỗi thường gặp thứ nhất.
+- Lỗi thường gặp thứ hai.
+
+## Quiz
+
+<QuizPlaceholder />
+
+## Practice
+
+<PracticeList
+  items={[
+    'Bài tập thực hành thứ nhất.',
+    'Bài tập thực hành thứ hai.',
+  ]}
+/>
+
+## Summary
+
+Tóm tắt lại những ý chính của bài học.
+
+</LessonLayout>

@@ -50,7 +50,7 @@ export const courses = [
         title: 'Dynamic Programming',
         order: 2,
         lessons: [
-          {id: 'fibonacci', slug: 'fibonacci', title: 'Fibonacci', description: 'Bài toán nhập môn quy hoạch động.', order: 1},
+          {id: 'fibonacci', slug: 'fibonacci', title: 'Fibonacci Bottom-up', description: 'Bài toán nhập môn quy hoạch động.', order: 1},
           {id: 'climbing-stairs', slug: 'climbing-stairs', title: 'Climbing Stairs', description: 'Đếm số cách leo cầu thang.', order: 2},
           {id: 'house-robber', slug: 'house-robber', title: 'House Robber', description: 'Tối ưu lựa chọn không kề nhau.', order: 3},
           {id: 'coin-change', slug: 'coin-change', title: 'Coin Change', description: 'Tối ưu số đồng xu cần dùng.', order: 4},
