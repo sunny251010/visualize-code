@@ -1,0 +1,269 @@
+.visualizer,
+.quiz {
+  overflow: hidden;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.toolHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--vc-border);
+  background:
+    linear-gradient(90deg, rgba(14, 165, 233, 0.12), rgba(34, 197, 94, 0.08)),
+    var(--vc-surface);
+}
+
+.toolHeader h3 {
+  margin: 0.2rem 0 0;
+  font-size: 1.18rem;
+}
+
+.eyebrow {
+  color: var(--ifm-color-primary-dark);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.stepBadge {
+  flex: 0 0 auto;
+  border: 1px solid rgba(14, 165, 233, 0.28);
+  border-radius: 999px;
+  padding: 0.35rem 0.65rem;
+  background: rgba(14, 165, 233, 0.1);
+  color: var(--ifm-color-primary-darkest);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.arrayGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.6rem;
+  padding: 1rem;
+}
+
+.cell {
+  display: grid;
+  min-height: 5.3rem;
+  align-content: center;
+  justify-items: center;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  background: var(--vc-surface);
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.cell span {
+  color: var(--vc-text-muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.cell strong {
+  color: var(--ifm-font-color-base);
+  font-size: 1.55rem;
+}
+
+.cellSource {
+  border-color: rgba(34, 197, 94, 0.55);
+  background: rgba(34, 197, 94, 0.11);
+}
+
+.cellCurrent {
+  border-color: rgba(245, 158, 11, 0.75);
+  background: rgba(245, 158, 11, 0.16);
+  transform: translateY(-2px);
+}
+
+.cellPending {
+  opacity: 0.5;
+}
+
+.traceGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.65rem;
+  padding: 0 1rem 1rem;
+}
+
+.traceGrid div {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.7rem;
+  background: var(--ifm-background-surface-color);
+}
+
+.traceGrid span,
+.traceGrid strong {
+  display: block;
+}
+
+.traceGrid span {
+  color: var(--vc-text-muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.traceGrid strong {
+  margin-top: 0.1rem;
+  color: var(--ifm-color-primary-darkest);
+  font-size: 1.2rem;
+}
+
+.explainRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 1rem 1rem;
+}
+
+.explainRow p {
+  margin: 0;
+  color: var(--vc-text-muted);
+  line-height: 1.55;
+}
+
+.controls,
+.quizActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.controls button,
+.quizActions button {
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.48rem 0.75rem;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.controls button:hover:not(:disabled),
+.quizActions button:hover {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary-darkest);
+}
+
+.controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.codeTrace {
+  display: grid;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 1rem;
+  border-top: 1px solid var(--vc-border);
+  background: #0f172a;
+  color: #dbeafe;
+}
+
+.codeTrace code {
+  display: block;
+  border-radius: 6px;
+  padding: 0.25rem 0.45rem;
+  background: transparent;
+  color: inherit;
+}
+
+.activeCodeLine {
+  background: rgba(14, 165, 233, 0.22) !important;
+  color: #f8fafc !important;
+}
+
+.questionList {
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem;
+}
+
+.question {
+  margin: 0;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.9rem;
+}
+
+.question legend {
+  padding: 0 0.35rem;
+  font-weight: 800;
+}
+
+.options {
+  display: grid;
+  gap: 0.45rem;
+  margin-top: 0.65rem;
+}
+
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0.65rem;
+  background: var(--vc-surface);
+  cursor: pointer;
+  line-height: 1.45;
+}
+
+.option input {
+  margin-top: 0.22rem;
+}
+
+.optionCorrect {
+  border-color: rgba(34, 197, 94, 0.65);
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.optionWrong {
+  border-color: rgba(239, 68, 68, 0.6);
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.feedbackGood,
+.feedbackBad {
+  margin: 0.65rem 0 0;
+  line-height: 1.55;
+}
+
+.feedbackGood {
+  color: #15803d;
+}
+
+.feedbackBad {
+  color: #b91c1c;
+}
+
+.quizActions {
+  padding: 0 1rem 1rem;
+}
+
+@media screen and (max-width: 760px) {
+  .toolHeader,
+  .explainRow {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .arrayGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .traceGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

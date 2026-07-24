@@ -1,3 +1,8 @@
+import {
+  fibonacciQuizQuestions,
+  fibonacciVideo,
+} from './fibonacciContent';
+
 export const mockCourses = [
   {
     id: 'course_dsa',
@@ -54,6 +59,7 @@ export const mockLessonTranslations = [
       'Hiểu mảng/list ở mức cơ bản.',
       'Biết định nghĩa dãy Fibonacci.',
     ],
+    video: fibonacciVideo,
     theoryBlocks: [
       {
         id: 'definition',
@@ -100,7 +106,7 @@ F(6) = 8`,
       },
     ],
     visualization: {
-      type: 'placeholder',
+      type: 'fibonacci-bottom-up',
       title: 'Bảng trạng thái Fibonacci',
     },
     codeExamples: [
@@ -176,8 +182,8 @@ print(fibonacci(6))`,
       'Viết hàm trả về toàn bộ dãy Fibonacci từ `F(0)` đến `F(n)`.',
     ],
     quiz: {
-      type: 'placeholder',
-      questions: [],
+      type: 'multiple-choice',
+      questions: fibonacciQuizQuestions,
     },
     summary: [
       'Bottom-up là cách giải từ bài toán nhỏ lên bài toán lớn. Với Fibonacci, ta bắt đầu từ `F(0)` và `F(1)`, sau đó tính từng giá trị tiếp theo bằng công thức `F(i) = F(i - 1) + F(i - 2)`.',
@@ -201,6 +207,7 @@ print(fibonacci(6))`,
       'Understand arrays/lists at a basic level.',
       'Know the definition of the Fibonacci sequence.',
     ],
+    video: fibonacciVideo,
     theoryBlocks: [
       {
         id: 'definition',
@@ -247,7 +254,7 @@ F(6) = 8`,
       },
     ],
     visualization: {
-      type: 'placeholder',
+      type: 'fibonacci-bottom-up',
       title: 'Fibonacci State Table',
     },
     codeExamples: [
@@ -323,8 +330,8 @@ print(fibonacci(6))`,
       'Write a function that returns the full Fibonacci sequence from `F(0)` to `F(n)`.',
     ],
     quiz: {
-      type: 'placeholder',
-      questions: [],
+      type: 'multiple-choice',
+      questions: fibonacciQuizQuestions,
     },
     summary: [
       'Bottom-up solves the problem from small cases to larger cases. For Fibonacci, we start with `F(0)` and `F(1)`, then compute each next value with `F(i) = F(i - 1) + F(i - 2)`.',

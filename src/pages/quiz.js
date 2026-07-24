@@ -1,6 +1,7 @@
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import {FibonacciQuiz} from '@site/src/components/FibonacciLessonTools';
 import styles from './index.module.css';
 
 export default function QuizPage() {
@@ -13,13 +14,14 @@ export default function QuizPage() {
           <div className={styles.sectionHeader}>
             <Heading as="h1">Quiz</Heading>
             <p>
-              Đây là khung trang Quiz cho Phase 1. Hệ thống câu hỏi, chấm điểm trên client và giải thích đáp án sẽ được triển khai ở phase riêng, chưa làm trong bước này.
+              Quiz Fibonacci dùng cùng bộ câu hỏi với bài học DSA/Fibonacci.
             </p>
           </div>
+          <FibonacciQuiz />
           <div className={styles.courseGrid}>
-            <Link className={styles.courseCard} to="/courses/dsa">
-              <span>DSA Quiz</span>
-              <p>Câu hỏi theo bài học DSA sẽ được thêm sau khi lesson template sẵn sàng.</p>
+            <Link className={styles.courseCard} to="/courses/dsa/fibonacci">
+              <span>Fibonacci Bottom-up</span>
+              <p>Mở bài học đầy đủ để xem video, animation và phần giải thích.</p>
             </Link>
             <Link className={styles.courseCard} to="/courses/python">
               <span>Python Quiz</span>

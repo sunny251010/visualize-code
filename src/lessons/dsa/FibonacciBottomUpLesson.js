@@ -4,12 +4,14 @@ import LessonLayout, {
   LearningObjectives,
   Prerequisites,
   LessonVideo,
-  VisualizationPlaceholder,
   ProgramOutputPlaceholder,
   ComplexitySummary,
-  QuizPlaceholder,
   PracticeList,
 } from '@site/src/components/Lesson';
+import {
+  FibonacciQuiz,
+  FibonacciVisualizer,
+} from '@site/src/components/FibonacciLessonTools';
 import {useLanguage} from '@site/src/i18n/language';
 import {lessonService} from '@site/src/services/lessonService';
 
@@ -61,7 +63,7 @@ function LessonSectionContent({section}) {
   }
 
   if (section.type === 'visualization') {
-    return <VisualizationPlaceholder title={content?.title} />;
+    return <FibonacciVisualizer />;
   }
 
   if (section.type === 'codeExamples') {
@@ -81,7 +83,7 @@ function LessonSectionContent({section}) {
   }
 
   if (section.type === 'quiz') {
-    return <QuizPlaceholder quiz={content} />;
+    return <FibonacciQuiz />;
   }
 
   if (section.type === 'practice') {
