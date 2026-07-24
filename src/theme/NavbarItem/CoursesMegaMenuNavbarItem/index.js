@@ -54,23 +54,30 @@ function CoursesMegaMenuDesktop({label, position}) {
         'navbar__item',
         styles.megaMenuRoot,
         position === 'right' && styles.alignRight,
-      )}>
-      <button
-        type="button"
+      )}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+      onBlur={(event) => {
+        if (!menuRef.current?.contains(event.relatedTarget)) {
+          setOpen(false);
+        }
+      }}>
+      <Link
+        to="/courses"
         aria-haspopup="true"
         aria-expanded={open}
         className={clsx('clean-btn navbar__link', styles.trigger, {
           [styles.activeTrigger]: isActive,
         })}
-        onClick={() => setOpen((current) => !current)}
+        onFocus={() => setOpen(true)}
+        onClick={() => setOpen(false)}
         onKeyDown={(event) => {
           if (event.key === 'Escape') {
             setOpen(false);
           }
         }}>
         {t('nav.courses', label)}
-        <span className={styles.chevron} aria-hidden="true">⌄</span>
-      </button>
+      </Link>
 
       <div className={clsx(styles.panel, open && styles.panelOpen)}>
         <div className={styles.panelGrid}>

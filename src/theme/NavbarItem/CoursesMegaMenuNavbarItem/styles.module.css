@@ -13,14 +13,9 @@
   color: var(--ifm-navbar-link-hover-color);
 }
 
-.chevron {
-  font-size: 0.95rem;
-  line-height: 1;
-}
-
 .panel {
   position: absolute;
-  top: calc(100% + 0.65rem);
+  top: 100%;
   left: 0;
   z-index: 40;
   width: min(840px, calc(100vw - 2rem));
