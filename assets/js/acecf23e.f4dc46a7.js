@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkvisualize_code=self.webpackChunkvisualize_code||[]).push([["3220"],{1912(e){e.exports=JSON.parse('{"blogBasePath":"/visualize-code/blog","blogTitle":"Blog","authorsListPath":"/visualize-code/blog/authors"}')}}]);

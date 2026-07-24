@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://sunny251010.github.io/visualize-code/blog</id>
+    <id>https://visualize-code.site/blog</id>
     <title>Visualize Code Blog</title>
     <updated>2026-07-24T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://sunny251010.github.io/visualize-code/blog"/>
+    <link rel="alternate" href="https://visualize-code.site/blog"/>
     <subtitle>Visualize Code Blog</subtitle>
-    <icon>https://sunny251010.github.io/visualize-code/img/favicon.svg</icon>
+    <icon>https://visualize-code.site/img/favicon.svg</icon>
     <entry>
         <title type="html"><![CDATA[Visualize Code bắt đầu từ đâu?]]></title>
-        <id>https://sunny251010.github.io/visualize-code/blog/visualize-code-khoi-dau</id>
-        <link href="https://sunny251010.github.io/visualize-code/blog/visualize-code-khoi-dau"/>
+        <id>https://visualize-code.site/blog/visualize-code-khoi-dau</id>
+        <link href="https://visualize-code.site/blog/visualize-code-khoi-dau"/>
         <updated>2026-07-24T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[Visualize Code được xây dựng với một mục tiêu rõ ràng: giúp người học lập trình bằng tiếng Việt nhìn thấy thuật toán hoạt động từng bước.]]></summary>
         <content type="html"><![CDATA[<p>Visualize Code được xây dựng với một mục tiêu rõ ràng: giúp người học lập trình bằng tiếng Việt nhìn thấy thuật toán hoạt động từng bước.</p>

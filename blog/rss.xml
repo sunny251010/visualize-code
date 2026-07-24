@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Visualize Code Blog</title>
-        <link>https://sunny251010.github.io/visualize-code/blog</link>
+        <link>https://visualize-code.site/blog</link>
         <description>Visualize Code Blog</description>
         <lastBuildDate>Fri, 24 Jul 2026 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>vi</language>
         <item>
             <title><![CDATA[Visualize Code bắt đầu từ đâu?]]></title>
-            <link>https://sunny251010.github.io/visualize-code/blog/visualize-code-khoi-dau</link>
-            <guid>https://sunny251010.github.io/visualize-code/blog/visualize-code-khoi-dau</guid>
+            <link>https://visualize-code.site/blog/visualize-code-khoi-dau</link>
+            <guid>https://visualize-code.site/blog/visualize-code-khoi-dau</guid>
             <pubDate>Fri, 24 Jul 2026 00:00:00 GMT</pubDate>
             <description><![CDATA[Visualize Code được xây dựng với một mục tiêu rõ ràng: giúp người học lập trình bằng tiếng Việt nhìn thấy thuật toán hoạt động từng bước.]]></description>
             <content:encoded><![CDATA[<p>Visualize Code được xây dựng với một mục tiêu rõ ràng: giúp người học lập trình bằng tiếng Việt nhìn thấy thuật toán hoạt động từng bước.</p>
