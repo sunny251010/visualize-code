@@ -119,7 +119,8 @@ export const courses = [
     lesson('cpp-introduction', '', 'Introduction', 'Tổng quan lộ trình C++.', 1),
     lesson('cpp-syntax', 'basic-syntax', 'Basic Syntax', 'Cú pháp C++ cơ bản.', 2),
     lesson('cpp-functions', 'functions', 'Functions', 'Hàm trong C++.', 3),
-    lesson('cpp-oop', 'oop', 'OOP', 'Class và object trong C++.', 4),
+    lesson('cpp-recursion', 'recursion', 'Recursion', 'Đệ quy trong C++ qua call stack.', 4),
+    lesson('cpp-oop', 'oop', 'OOP', 'Class và object trong C++.', 5),
   ]),
   simpleCourse('oop', 'OOP', 'Lập trình hướng đối tượng qua ví dụ trực quan.', 'OO', 4, [
     lesson('oop-introduction', '', 'Introduction', 'Tổng quan OOP.', 1),

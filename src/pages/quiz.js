@@ -1,6 +1,7 @@
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import {CppRecursionQuiz} from '@site/src/components/CppRecursionLessonTools';
 import {FibonacciQuiz} from '@site/src/components/FibonacciLessonTools';
 import styles from './index.module.css';
 
@@ -14,18 +15,27 @@ export default function QuizPage() {
           <div className={styles.sectionHeader}>
             <Heading as="h1">Quiz</Heading>
             <p>
-              Quiz Fibonacci dùng cùng bộ câu hỏi với bài học DSA/Fibonacci.
+              Các quiz bên dưới dùng cùng bộ câu hỏi với từng bài học tương ứng.
             </p>
           </div>
-          <FibonacciQuiz />
+          <div className={styles.toolStack}>
+            <section className={styles.toolBlock}>
+              <h2>Fibonacci Bottom-up</h2>
+              <FibonacciQuiz />
+            </section>
+            <section className={styles.toolBlock}>
+              <h2>Đệ quy trong C++</h2>
+              <CppRecursionQuiz />
+            </section>
+          </div>
           <div className={styles.courseGrid}>
             <Link className={styles.courseCard} to="/courses/dsa/fibonacci">
               <span>Fibonacci Bottom-up</span>
               <p>Mở bài học đầy đủ để xem video, animation và phần giải thích.</p>
             </Link>
-            <Link className={styles.courseCard} to="/courses/python">
-              <span>Python Quiz</span>
-              <p>Ôn cú pháp và tư duy lập trình Python bằng câu hỏi ngắn.</p>
+            <Link className={styles.courseCard} to="/courses/cpp/recursion">
+              <span>Đệ quy trong C++</span>
+              <p>Mở bài học đầy đủ để xem call stack, code factorial và phần giải thích.</p>
             </Link>
           </div>
         </div>

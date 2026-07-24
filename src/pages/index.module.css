@@ -232,6 +232,16 @@
   font-weight: 700;
 }
 
+.toolStack {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolBlock h2 {
+  margin-bottom: 0.8rem;
+}
+
 .ctaBand {
   display: flex;
   align-items: center;

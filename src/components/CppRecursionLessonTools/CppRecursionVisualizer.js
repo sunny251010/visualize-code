@@ -1,0 +1,130 @@
+import {useEffect, useState} from 'react';
+import {
+  cppRecursionCodeLines,
+  cppRecursionFrames,
+} from '@site/src/data/cppRecursionContent';
+import styles from '@site/src/components/FibonacciLessonTools/styles.module.css';
+import localStyles from './styles.module.css';
+
+export default function CppRecursionVisualizer({compact = false}) {
+  const [frameIndex, setFrameIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const frame = cppRecursionFrames[frameIndex];
+
+  useEffect(() => {
+    if (!playing) {
+      return undefined;
+    }
+
+    const timer = window.setInterval(() => {
+      setFrameIndex((current) => {
+        if (current >= cppRecursionFrames.length - 1) {
+          setPlaying(false);
+          return current;
+        }
+
+        return current + 1;
+      });
+    }, 1000);
+
+    return () => window.clearInterval(timer);
+  }, [playing]);
+
+  return (
+    <div className={styles.visualizer}>
+      <div className={styles.toolHeader}>
+        <div>
+          <span className={styles.eyebrow}>C++ Recursion</span>
+          <h3>Mô phỏng call stack factorial(4)</h3>
+        </div>
+        <div className={styles.stepBadge}>Bước {frameIndex + 1}/{cppRecursionFrames.length}</div>
+      </div>
+
+      <div className={localStyles.recursionLayout}>
+        <div className={localStyles.stackPanel}>
+          <span className={localStyles.panelLabel}>Call stack</span>
+          <div className={localStyles.stack}>
+            {[...frame.stack].reverse().map((value, index) => (
+              <div
+                className={[
+                  localStyles.stackFrame,
+                  index === 0 ? localStyles.stackFrameActive : '',
+                ].join(' ')}
+                key={`${value}-${index}`}>
+                <strong>factorial({value})</strong>
+                <span>{index === 0 ? 'đang xử lý' : 'đang chờ'}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={localStyles.detailPanel}>
+          <span className={localStyles.panelLabel}>Trạng thái</span>
+          <div className={localStyles.expression}>{frame.expression}</div>
+          <p>{frame.note}</p>
+          <div className={styles.traceGrid}>
+            <TraceItem label="n" value={frame.n} />
+            <TraceItem label="pha" value={formatPhase(frame.phase)} />
+            <TraceItem label="return" value={frame.returnValue ?? '-'} />
+            <TraceItem label="stack" value={frame.stack.length} />
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.explainRow}>
+        <p>Đệ quy luôn cần điều kiện dừng và bước gọi lại trên bài toán nhỏ hơn.</p>
+        <div className={styles.controls}>
+          <button type="button" onClick={() => setFrameIndex(0)}>
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={() => setFrameIndex((current) => Math.max(0, current - 1))}
+            disabled={frameIndex === 0}>
+            Trước
+          </button>
+          <button type="button" onClick={() => setPlaying((current) => !current)}>
+            {playing ? 'Dừng' : 'Chạy'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setFrameIndex((current) => Math.min(cppRecursionFrames.length - 1, current + 1))}
+            disabled={frameIndex === cppRecursionFrames.length - 1}>
+            Sau
+          </button>
+        </div>
+      </div>
+
+      {!compact && (
+        <pre className={styles.codeTrace}>
+          {cppRecursionCodeLines.map((line, index) => (
+            <code
+              className={frame.activeLine === index + 1 ? styles.activeCodeLine : ''}
+              key={line}>
+              {line}
+            </code>
+          ))}
+        </pre>
+      )}
+    </div>
+  );
+}
+
+function TraceItem({label, value}) {
+  return (
+    <div>
+      <span>{label}</span>
+      <strong>{value}</strong>
+    </div>
+  );
+}
+
+function formatPhase(phase) {
+  const labels = {
+    call: 'gọi hàm',
+    base: 'điều kiện dừng',
+    return: 'trả về',
+  };
+
+  return labels[phase] ?? phase;
+}
