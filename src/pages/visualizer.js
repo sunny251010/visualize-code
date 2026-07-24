@@ -17,11 +17,11 @@ export default function VisualizerPage() {
             </p>
           </div>
           <div className={styles.courseGrid}>
-            <Link className={styles.courseCard} to="/docs/courses/dsa/intro">
+            <Link className={styles.courseCard} to="/courses/dsa">
               <span>DSA Visualizers</span>
               <p>Binary Search, Sorting, Stack, Queue và Graph sẽ được ưu tiên trong các phase sau.</p>
             </Link>
-            <Link className={styles.courseCard} to="/docs/courses/algorithms/intro">
+            <Link className={styles.courseCard} to="/courses/algorithms">
               <span>Algorithms</span>
               <p>Khu vực dành cho mô phỏng thuật toán theo từng bước giải thích.</p>
             </Link>

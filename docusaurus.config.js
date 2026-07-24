@@ -46,6 +46,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.js',
           editUrl:
             'https://github.com/sunny251010/visualize-code/tree/main/',
@@ -86,18 +87,9 @@ const config = {
         items: [
           {to: '/', label: 'Home', position: 'left'},
           {
-            type: 'dropdown',
+            type: 'custom-coursesMegaMenu',
             label: 'Courses',
             position: 'left',
-            items: [
-              {label: 'DSA', to: '/docs/courses/dsa/intro'},
-              {label: 'Python', to: '/docs/courses/python/intro'},
-              {label: 'C++', to: '/docs/courses/cpp/intro'},
-              {label: 'OOP', to: '/docs/courses/oop/intro'},
-              {label: 'Algorithms', to: '/docs/courses/algorithms/intro'},
-              {label: 'Data Structures', to: '/docs/courses/data-structures/intro'},
-              {label: 'Interview Prep', to: '/docs/courses/interview-prep/intro'},
-            ],
           },
           {to: '/visualizer', label: 'Visualizer', position: 'left'},
           {to: '/quiz', label: 'Quiz', position: 'left'},
@@ -110,10 +102,11 @@ const config = {
           {
             title: 'Courses',
             items: [
-              {label: 'DSA', to: '/docs/courses/dsa/intro'},
-              {label: 'Python', to: '/docs/courses/python/intro'},
-              {label: 'C++', to: '/docs/courses/cpp/intro'},
-              {label: 'OOP', to: '/docs/courses/oop/intro'},
+              {label: 'All Courses', to: '/courses'},
+              {label: 'DSA', to: '/courses/dsa'},
+              {label: 'Python', to: '/courses/python'},
+              {label: 'C++', to: '/courses/cpp'},
+              {label: 'OOP', to: '/courses/oop'},
             ],
           },
           {

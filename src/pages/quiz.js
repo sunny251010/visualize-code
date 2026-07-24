@@ -17,11 +17,11 @@ export default function QuizPage() {
             </p>
           </div>
           <div className={styles.courseGrid}>
-            <Link className={styles.courseCard} to="/docs/courses/dsa/intro">
+            <Link className={styles.courseCard} to="/courses/dsa">
               <span>DSA Quiz</span>
               <p>Câu hỏi theo bài học DSA sẽ được thêm sau khi lesson template sẵn sàng.</p>
             </Link>
-            <Link className={styles.courseCard} to="/docs/courses/python/intro">
+            <Link className={styles.courseCard} to="/courses/python">
               <span>Python Quiz</span>
               <p>Ôn cú pháp và tư duy lập trình Python bằng câu hỏi ngắn.</p>
             </Link>

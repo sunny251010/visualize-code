@@ -2,30 +2,9 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import CourseGrid from '@site/src/components/CourseGrid';
+import {getFeaturedCourses} from '@site/src/data/courseNavigation';
 import styles from './index.module.css';
-
-const courses = [
-  {
-    title: 'DSA',
-    description: 'Cấu trúc dữ liệu và giải thuật với mô phỏng từng bước.',
-    to: '/docs/courses/dsa/intro',
-  },
-  {
-    title: 'Python',
-    description: 'Nền tảng lập trình rõ ràng, dễ tiếp cận cho người mới.',
-    to: '/docs/courses/python/intro',
-  },
-  {
-    title: 'C++',
-    description: 'Cú pháp, kiểu dữ liệu và kỹ năng nền cho thuật toán.',
-    to: '/docs/courses/cpp/intro',
-  },
-  {
-    title: 'OOP',
-    description: 'Class, object và các nguyên lý hướng đối tượng bằng ví dụ.',
-    to: '/docs/courses/oop/intro',
-  },
-];
 
 const lessonParts = [
   'Giới thiệu',
@@ -57,7 +36,7 @@ function HomepageHeader() {
               Một không gian học lập trình tập trung vào trực quan hóa: mỗi khái niệm được giải thích bằng lý thuyết ngắn gọn, ví dụ dễ hiểu, code C++/Python và lộ trình học rõ ràng.
             </p>
             <div className={styles.actions}>
-              <Link className="button button--primary button--lg" to="/docs/courses/dsa/intro">
+              <Link className="button button--primary button--lg" to="/courses/dsa">
                 Bắt đầu với DSA
               </Link>
               <Link className="button button--secondary button--lg" to="/visualizer">
@@ -108,6 +87,7 @@ array[mid] == target`}</code>
 
 export default function Home() {
   const {siteConfig} = useDocusaurusContext();
+  const featuredCourses = getFeaturedCourses();
 
   return (
     <Layout
@@ -123,14 +103,7 @@ export default function Home() {
                 Phase 1 tạo nền tảng và cấu trúc course. Nội dung chi tiết sẽ được triển khai theo từng phase sau roadmap.
               </p>
             </div>
-            <div className={styles.courseGrid}>
-              {courses.map((course) => (
-                <Link className={styles.courseCard} to={course.to} key={course.title}>
-                  <span>{course.title}</span>
-                  <p>{course.description}</p>
-                </Link>
-              ))}
-            </div>
+            <CourseGrid courses={featuredCourses} />
           </div>
         </section>
 
