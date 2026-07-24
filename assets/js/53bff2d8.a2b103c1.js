@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvisualize_code=self.webpackChunkvisualize_code||[]).push([["6452"],{1126(e){e.exports=JSON.parse('{"metadata":{"permalink":"/visualize-code/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
