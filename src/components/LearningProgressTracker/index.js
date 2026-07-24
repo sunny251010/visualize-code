@@ -3,6 +3,10 @@ import {useLocation} from '@docusaurus/router';
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import {getTranslatedToc} from '@site/src/utils/lessonToc';
 import {progressService} from '@site/src/services/progressService';
+import {
+  consumeCourseNavNavigation,
+  forceWindowScrollToTop,
+} from '@site/src/utils/courseNavScroll';
 
 export default function LearningProgressTracker() {
   const location = useLocation();
@@ -11,6 +15,11 @@ export default function LearningProgressTracker() {
 
   useEffect(() => {
     if (typeof window === 'undefined' || lessonToc.length === 0) {
+      return;
+    }
+
+    if (consumeCourseNavNavigation(location.pathname)) {
+      forceWindowScrollToTop();
       return;
     }
 

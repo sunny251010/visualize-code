@@ -1,5 +1,4 @@
-import {useEffect, useMemo, useState} from 'react';
-import Link from '@docusaurus/Link';
+import {useEffect, useMemo} from 'react';
 import {useLocation} from '@docusaurus/router';
 import {
   courses,
@@ -7,24 +6,26 @@ import {
 } from '@site/src/data/courseNavigation';
 import {useTranslation} from '@site/src/i18n/language';
 import {progressService} from '@site/src/services/progressService';
+import {
+  forceWindowScrollToTop,
+  hasCourseNavNavigation,
+  prepareCourseNavNavigation,
+} from '@site/src/utils/courseNavScroll';
 import styles from './styles.module.css';
 
 export default function CourseLearningNav() {
   const location = useLocation();
   const t = useTranslation();
-  const [progress, setProgress] = useState({});
   const activeCourse = useMemo(
     () => getActiveCourse(location.pathname),
     [location.pathname],
   );
 
   useEffect(() => {
-    try {
-      setProgress(progressService.getProgress());
-    } catch {
-      setProgress({});
+    if (hasCourseNavNavigation(location.pathname)) {
+      forceWindowScrollToTop();
     }
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     const currentCourse = getActiveCourse(location.pathname);
@@ -32,13 +33,11 @@ export default function CourseLearningNav() {
       return;
     }
 
-    const nextProgress = progressService.recordLessonVisit({
+    progressService.recordLessonVisit({
       courseId: currentCourse.id,
       lessonId: location.pathname,
       path: location.pathname,
     });
-
-    setProgress(nextProgress);
   }, [location.pathname]);
 
   return (
@@ -49,16 +48,18 @@ export default function CourseLearningNav() {
           .sort((a, b) => a.order - b.order)
           .map((course) => {
             const isActive = activeCourse?.id === course.id;
-            const savedPath = progress.lastLessons?.[course.id];
-            const to = savedPath ?? getCoursePath(course);
+            const to = getCoursePath(course);
 
             return (
-              <Link
+              <a
                 className={`${styles.link} ${isActive ? styles.activeLink : ''}`}
-                to={to}
-                key={course.id}>
+                href={to}
+                key={course.id}
+                aria-current={isActive ? 'page' : undefined}
+                onPointerDown={() => prepareCourseNavNavigation(to)}
+                onClick={(event) => handleCourseClick(event, to, location.pathname)}>
                 {t(`course.${course.id}.title`, course.title)}
-              </Link>
+              </a>
             );
           })}
       </nav>
@@ -66,7 +67,27 @@ export default function CourseLearningNav() {
   );
 }
 
+function handleCourseClick(event, to, currentPathname) {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  prepareCourseNavNavigation(to);
+
+  if (normalizePathname(currentPathname) === normalizePathname(to)) {
+    event.preventDefault();
+    forceWindowScrollToTop();
+  }
+}
 
 function getActiveCourse(pathname) {
   return courses.find((course) => pathname.includes(`/courses/${course.slug}`));
+}
+
+function normalizePathname(pathname) {
+  if (!pathname || pathname === '/') {
+    return '/';
+  }
+
+  return pathname.replace(/\/+$/, '');
 }

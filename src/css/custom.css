@@ -16,7 +16,8 @@
   --ifm-background-color: #ffffff;
   --ifm-background-surface-color: #ffffff;
   --ifm-heading-font-weight: 800;
-  --ifm-navbar-height: 4.25rem;
+  --ifm-navbar-height: 4.75rem;
+  --vc-course-nav-height: 2.2rem;
   --ifm-code-font-size: 95%;
   --ifm-global-radius: 8px;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
@@ -47,8 +48,61 @@
   box-shadow: none;
 }
 
+.navbar__inner {
+  align-items: center;
+  min-height: var(--ifm-navbar-height);
+}
+
+.navbar__items {
+  align-items: center;
+  height: var(--ifm-navbar-height);
+}
+
+.navbar__brand {
+  align-items: center;
+  height: var(--ifm-navbar-height);
+  margin-right: 1.25rem;
+}
+
+.navbar__logo {
+  height: 2.4rem;
+  margin-right: 0.55rem;
+}
+
+.navbar__title {
+  font-size: 1.22rem;
+  line-height: 1.1;
+}
+
+.navbar__item {
+  display: inline-flex;
+  align-items: center;
+  height: var(--ifm-navbar-height);
+}
+
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  height: var(--ifm-navbar-height);
+  padding-right: 0.95rem;
+  padding-left: 0.95rem;
+  font-weight: 850;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 .navbar__title {
   font-weight: 850;
+}
+
+.navbar__items--right {
+  align-items: center;
+}
+
+.navbar__items--right .navbar__item,
+.navbar__items--right .clean-btn {
+  align-items: center;
+  justify-content: center;
 }
 
 .footer {
@@ -118,19 +172,19 @@
 
 .theme-doc-markdown h2,
 .theme-doc-markdown h3 {
-  scroll-margin-top: calc(var(--ifm-navbar-height) + 4.25rem);
+  scroll-margin-top: calc(var(--ifm-navbar-height) + var(--vc-course-nav-height) + 2.5rem);
 }
 
 .theme-doc-toc-desktop {
   position: sticky;
-  top: calc(var(--ifm-navbar-height) + 3.5rem);
+  top: calc(var(--ifm-navbar-height) + var(--vc-course-nav-height) + 1.25rem);
 }
 
 @media (min-width: 997px) {
   .theme-doc-sidebar-container {
     position: sticky !important;
-    top: calc(var(--ifm-navbar-height) + 2.85rem) !important;
-    height: calc(100vh - var(--ifm-navbar-height) - 2.85rem) !important;
+    top: calc(var(--ifm-navbar-height) + var(--vc-course-nav-height)) !important;
+    height: calc(100vh - var(--ifm-navbar-height) - var(--vc-course-nav-height)) !important;
     align-self: flex-start;
     overflow-y: auto;
     overscroll-behavior: contain;
