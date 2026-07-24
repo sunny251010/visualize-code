@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import PaginatorNavLink from '@theme/PaginatorNavLink';
 import {useTranslation} from '@site/src/i18n/language';
+import {translateSidebarLabel} from '@site/src/utils/sidebarLabels';
 
 export default function DocPaginator(props) {
   const {className, previous, next} = props;
@@ -14,14 +15,14 @@ export default function DocPaginator(props) {
       {previous && (
         <PaginatorNavLink
           {...previous}
-          title={t(`sidebar.${previous.title}`, previous.title)}
+          title={translateSidebarLabel(previous.title, t)}
           subLabel={t('pagination.previous')}
         />
       )}
       {next && (
         <PaginatorNavLink
           {...next}
-          title={t(`sidebar.${next.title}`, next.title)}
+          title={translateSidebarLabel(next.title, t)}
           subLabel={t('pagination.next')}
           isNext
         />

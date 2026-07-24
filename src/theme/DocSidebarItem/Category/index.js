@@ -20,6 +20,7 @@ import useIsBrowser from '@docusaurus/useIsBrowser';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import DocSidebarItemLink from '@theme/DocSidebarItem/Link';
 import {useTranslation} from '@site/src/i18n/language';
+import {translateSidebarLabel} from '@site/src/utils/sidebarLabels';
 
 function getStorageKey(item) {
   return `visualize-code:sidebar:${item.href ?? item.label}`;
@@ -156,7 +157,7 @@ function DocSidebarItemCategoryCollapsible({
 }) {
   const {label, collapsible, className, href} = item;
   const t = useTranslation();
-  const translatedLabel = t(`sidebar.${label}`, label);
+  const translatedLabel = translateSidebarLabel(label, t);
   const {
     docs: {
       sidebar: {autoCollapseCategories},

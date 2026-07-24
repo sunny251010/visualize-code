@@ -9,6 +9,7 @@ import {translate} from '@docusaurus/Translate';
 import DocBreadcrumbsStructuredData from '@theme/DocBreadcrumbs/StructuredData';
 import {courses} from '@site/src/data/courseNavigation';
 import {useTranslation} from '@site/src/i18n/language';
+import {translateSidebarLabel} from '@site/src/utils/sidebarLabels';
 
 function BreadcrumbsItemLink({children, href, isLast}) {
   const className = 'breadcrumbs__link';
@@ -56,7 +57,7 @@ export default function DocBreadcrumbs() {
     label:
       item.label === 'Courses'
         ? t('courses.all')
-        : t(`sidebar.${item.label}`, item.label),
+        : translateSidebarLabel(item.label, t),
   }));
 
   return (
