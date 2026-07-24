@@ -1,4 +1,5 @@
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
+import {useTranslation} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
 export function LearningObjectives({items = []}) {
@@ -11,12 +12,13 @@ export function LearningObjectives({items = []}) {
 
 export function Prerequisites({items}) {
   const {frontMatter} = useDoc();
+  const t = useTranslation();
   const prerequisites = items ?? frontMatter.prerequisites ?? [];
 
   if (prerequisites.length === 0) {
     return (
       <p className={styles.muted}>
-        Bài học này không yêu cầu kiến thức nền đặc biệt.
+        {t('lesson.noPrerequisites')}
       </p>
     );
   }
@@ -45,33 +47,41 @@ export function LessonVideo({video}) {
 }
 
 export function VisualizationPlaceholder({title = 'Visualization'}) {
+  const t = useTranslation();
+
   return (
     <Placeholder
-      title={title}
-      description="Khu vực này sẽ được kết nối với visualizer/animation ở phase sau."
+      title={title === 'Visualization' ? t('lesson.visualization') : title}
+      description={t('lesson.visualizationPlaceholder')}
     />
   );
 }
 
 export function ProgramOutputPlaceholder() {
+  const t = useTranslation();
+
   return (
     <Placeholder
-      title="Program Output"
-      description="Khu vực này sẽ hiển thị output hoặc kết quả chạy chương trình khi Code Runner được triển khai."
+      title={t('lesson.programOutput')}
+      description={t('lesson.programOutputPlaceholder')}
     />
   );
 }
 
 export function QuizPlaceholder() {
+  const t = useTranslation();
+
   return (
     <Placeholder
-      title="Quiz"
-      description="Quiz tương tác sẽ được thêm ở phase sau. Bài học hiện vẫn giữ sẵn vị trí để không phải refactor MDX."
+      title={t('lesson.quiz')}
+      description={t('lesson.quizPlaceholder')}
     />
   );
 }
 
 export function ComplexitySummary({time, space}) {
+  const t = useTranslation();
+
   if (!time && !space) {
     return null;
   }
@@ -80,13 +90,13 @@ export function ComplexitySummary({time, space}) {
     <div className={styles.complexityGrid}>
       {time && (
         <div>
-          <span>Time Complexity</span>
+          <span>{t('lesson.timeComplexity')}</span>
           <strong>{time}</strong>
         </div>
       )}
       {space && (
         <div>
-          <span>Space Complexity</span>
+          <span>{t('lesson.spaceComplexity')}</span>
           <strong>{space}</strong>
         </div>
       )}
@@ -95,11 +105,13 @@ export function ComplexitySummary({time, space}) {
 }
 
 export function PracticeList({items = []}) {
+  const t = useTranslation();
+
   if (items.length === 0) {
     return (
       <Placeholder
-        title="Practice"
-        description="Bài tập luyện tập sẽ được bổ sung khi hệ thống practice hoàn thiện."
+        title={t('lesson.practice')}
+        description={t('lesson.practicePlaceholder')}
       />
     );
   }

@@ -1,35 +1,42 @@
 import {useDoc} from '@docusaurus/plugin-content-docs/client';
 import Heading from '@theme/Heading';
 import {normalizeLessonMetadata} from '@site/src/data/lessonMetadata';
+import {useTranslation} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
 export default function LessonLayout({children}) {
   const {frontMatter, metadata} = useDoc();
+  const t = useTranslation();
   const lesson = normalizeLessonMetadata(frontMatter);
-  const title = lesson.title ?? metadata.title;
+  const title = frontMatter.translationKey
+    ? t(`${frontMatter.translationKey}.title`, lesson.title ?? metadata.title)
+    : lesson.title ?? metadata.title;
+  const description = frontMatter.translationKey
+    ? t(`${frontMatter.translationKey}.description`, lesson.description)
+    : lesson.description;
 
   return (
     <article className={styles.lesson}>
       <header className={styles.header}>
         <div className={styles.kicker}>
           <span>{formatCourse(lesson.course)}</span>
-          {lesson.topic && <span>{formatTopic(lesson.topic)}</span>}
+          {lesson.topic && <span>{formatTopic(lesson.topic, t)}</span>}
         </div>
         <Heading as="h1" className={styles.title}>
           {title}
         </Heading>
-        {lesson.description && (
-          <p className={styles.description}>{lesson.description}</p>
+        {description && (
+          <p className={styles.description}>{description}</p>
         )}
         <div className={styles.metaGrid}>
-          <MetaItem label="Difficulty" value={formatDifficulty(lesson.difficulty)} />
+          <MetaItem label={t('lesson.difficulty')} value={formatDifficulty(lesson.difficulty, t)} />
           <MetaItem
-            label="Estimated time"
-            value={lesson.estimatedTime ? `${lesson.estimatedTime} phút` : 'Chưa cập nhật'}
+            label={t('lesson.estimatedTime')}
+            value={lesson.estimatedTime ? `${lesson.estimatedTime} ${t('lesson.minutes')}` : t('lesson.notUpdated')}
           />
           <MetaItem
-            label="Tags"
-            value={lesson.tags.length > 0 ? lesson.tags.join(', ') : 'Chưa có tag'}
+            label={t('lesson.tags')}
+            value={lesson.tags.length > 0 ? lesson.tags.join(', ') : t('lesson.noTags')}
           />
         </div>
       </header>
@@ -55,19 +62,21 @@ function formatCourse(course) {
   return course.toUpperCase();
 }
 
-function formatTopic(topic) {
-  return topic
+function formatTopic(topic, t) {
+  const fallback = topic
     .split('-')
     .map((part) => part[0].toUpperCase() + part.slice(1))
     .join(' ');
+
+  return t(`topic.${topic}`, fallback);
 }
 
-function formatDifficulty(difficulty) {
+function formatDifficulty(difficulty, t) {
   const labels = {
-    beginner: 'Beginner',
-    intermediate: 'Intermediate',
-    advanced: 'Advanced',
+    beginner: t('lesson.beginner'),
+    intermediate: t('lesson.intermediate'),
+    advanced: t('lesson.advanced'),
   };
 
-  return labels[difficulty] ?? difficulty ?? 'Beginner';
+  return labels[difficulty] ?? difficulty ?? t('lesson.beginner');
 }

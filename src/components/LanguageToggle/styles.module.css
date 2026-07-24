@@ -1,0 +1,27 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 2rem;
+  border: 1px solid var(--vc-border);
+  border-radius: 8px;
+  padding: 0 0.55rem;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.toggle:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.toggle span {
+  color: var(--ifm-color-primary-darkest);
+}
+
+.toggle strong {
+  color: var(--vc-text-muted);
+  font-size: 0.72rem;
+}

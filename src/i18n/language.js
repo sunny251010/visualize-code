@@ -1,0 +1,333 @@
+import React, {createContext, useContext, useEffect, useMemo, useState} from 'react';
+
+const STORAGE_KEY = 'visualize-code:language';
+const DEFAULT_LANGUAGE = 'vi';
+
+const LanguageContext = createContext(null);
+
+export const languages = {
+  vi: 'Tiếng Việt',
+  en: 'English',
+};
+
+export const translations = {
+  vi: {
+    'nav.home': 'Trang chủ',
+    'nav.courses': 'Khóa học',
+    'nav.visualizer': 'Trực quan hóa',
+    'nav.quiz': 'Quiz',
+    'nav.blog': 'Blog',
+    'nav.language': 'Ngôn ngữ',
+    'nav.switchLanguage': 'Chuyển ngôn ngữ',
+    'courses.all': 'Tất cả khóa học',
+    'courses.viewAll': 'Xem tất cả khóa học →',
+    'mega.programming': 'Lập trình',
+    'mega.computerScience': 'Khoa học máy tính',
+    'mega.career': 'Sự nghiệp',
+    'mega.projects': 'Dự án',
+    'footer.courses': 'Khóa học',
+    'footer.practice': 'Thực hành',
+    'footer.more': 'Thêm',
+    'footer.copyright': 'Copyright © 2026 Visualize Code. Xây dựng bằng Docusaurus.',
+    'common.comingSoon': 'Sắp ra mắt',
+    'common.lessons': 'bài học',
+    'lesson.lesson': 'Bài học',
+    'lesson.difficulty': 'Độ khó',
+    'lesson.estimatedTime': 'Thời lượng',
+    'lesson.tags': 'Thẻ',
+    'lesson.minutes': 'phút',
+    'lesson.notUpdated': 'Chưa cập nhật',
+    'lesson.noTags': 'Chưa có thẻ',
+    'lesson.beginner': 'Cơ bản',
+    'lesson.intermediate': 'Trung cấp',
+    'lesson.advanced': 'Nâng cao',
+    'lesson.noPrerequisites': 'Bài học này không yêu cầu kiến thức nền đặc biệt.',
+    'lesson.visualization': 'Trực quan hóa',
+    'lesson.visualizationPlaceholder': 'Khu vực này sẽ được kết nối với visualizer/animation ở phase sau.',
+    'lesson.programOutput': 'Kết quả chương trình',
+    'lesson.programOutputPlaceholder': 'Khu vực này sẽ hiển thị output hoặc kết quả chạy chương trình khi Code Runner được triển khai.',
+    'lesson.quiz': 'Quiz',
+    'lesson.quizPlaceholder': 'Quiz tương tác sẽ được thêm ở phase sau. Bài học hiện vẫn giữ sẵn vị trí để không phải refactor MDX.',
+    'lesson.practice': 'Luyện tập',
+    'lesson.practicePlaceholder': 'Bài tập luyện tập sẽ được bổ sung khi hệ thống practice hoàn thiện.',
+    'lesson.timeComplexity': 'Độ phức tạp thời gian',
+    'lesson.spaceComplexity': 'Độ phức tạp bộ nhớ',
+    'pagination.previous': 'Trước',
+    'pagination.next': 'Kế tiếp',
+    'topic.dynamic-programming': 'Quy hoạch động',
+    'topic.searching': 'Tìm kiếm',
+    'topic.sorting': 'Sắp xếp',
+    'topic.graphs': 'Đồ thị',
+    'topic.trees': 'Cây',
+    'course.dsa.title': 'DSA',
+    'course.dsa.description': 'Cấu trúc dữ liệu và giải thuật với mô phỏng trực quan.',
+    'course.python.title': 'Python',
+    'course.python.description': 'Lộ trình Python cơ bản cho người mới học lập trình.',
+    'course.cpp.title': 'C++',
+    'course.cpp.description': 'Lộ trình C++ cơ bản và nền tảng thuật toán.',
+    'course.oop.title': 'OOP',
+    'course.oop.description': 'Lập trình hướng đối tượng qua ví dụ trực quan.',
+    'course.algorithms.title': 'Thuật toán',
+    'course.algorithms.description': 'Các pattern thuật toán và phân tích độ phức tạp.',
+    'course.data-structures.title': 'Cấu trúc dữ liệu',
+    'course.data-structures.description': 'Cách tổ chức dữ liệu và thao tác hiệu quả.',
+    'course.interview-prep.title': 'Ôn phỏng vấn',
+    'course.interview-prep.description': 'Ôn tập pattern và bài tập phỏng vấn kỹ thuật.',
+    'course.python-projects.title': 'Dự án Python',
+    'course.python-projects.description': 'Các dự án Python nhỏ để luyện tập.',
+    'course.web-projects.title': 'Dự án Web',
+    'course.web-projects.description': 'Các dự án web thực hành.',
+    'sidebar.Introduction': 'Giới thiệu',
+    'sidebar.Dynamic Programming': 'Quy hoạch động',
+    'sidebar.Graphs': 'Đồ thị',
+    'sidebar.Trees': 'Cây',
+    'sidebar.Sorting': 'Sắp xếp',
+    'sidebar.Python Core': 'Python cốt lõi',
+    'sidebar.Algorithms': 'Thuật toán',
+    'sidebar.Data Structures': 'Cấu trúc dữ liệu',
+    'sidebar.Interview Prep': 'Ôn phỏng vấn',
+    'sidebar.Fibonacci Bottom-up': 'Fibonacci Bottom-up',
+    'sidebar.Climbing Stairs': 'Leo cầu thang',
+    'sidebar.House Robber': 'House Robber',
+    'sidebar.Coin Change': 'Đổi xu',
+    'sidebar.Longest Common Subsequence': 'Dãy con chung dài nhất',
+    'sidebar.Knapsack': 'Cái túi',
+    'sidebar.Binary Tree': 'Cây nhị phân',
+    'sidebar.Merge Sort': 'Sắp xếp trộn',
+    'sidebar.Quick Sort': 'Sắp xếp nhanh',
+    'sidebar.Basic Syntax': 'Cú pháp cơ bản',
+    'sidebar.Variables': 'Biến',
+    'sidebar.Operators': 'Toán tử',
+    'sidebar.Conditions': 'Điều kiện',
+    'sidebar.Loops': 'Vòng lặp',
+    'sidebar.Functions': 'Hàm',
+    'sidebar.Lists': 'List',
+    'sidebar.Dictionary': 'Dictionary',
+    'sidebar.Files': 'Tệp',
+    'sidebar.Projects': 'Dự án',
+    'fibonacci.title': 'Fibonacci Bottom-up',
+    'fibonacci.description': 'Học cách giải bài Fibonacci bằng quy hoạch động bottom-up.',
+    'fibonacci.objectives.heading': 'Mục tiêu học tập',
+    'fibonacci.prerequisites.heading': 'Kiến thức cần có',
+    'fibonacci.video.heading': 'Video bài học',
+    'fibonacci.theory.heading': 'Lý thuyết',
+    'fibonacci.visualization.heading': 'Trực quan hóa',
+    'fibonacci.code.heading': 'Ví dụ code',
+    'fibonacci.output.heading': 'Kết quả chương trình',
+    'fibonacci.complexity.heading': 'Độ phức tạp',
+    'fibonacci.mistakes.heading': 'Lỗi thường gặp',
+    'fibonacci.quiz.heading': 'Quiz',
+    'fibonacci.practice.heading': 'Luyện tập',
+    'fibonacci.summary.heading': 'Tóm tắt',
+    'fibonacci.objective.1': 'Hiểu ý tưởng quy hoạch động bottom-up qua bài Fibonacci.',
+    'fibonacci.objective.2': 'Biết cách xây bảng giá trị từ bài toán nhỏ đến bài toán lớn.',
+    'fibonacci.objective.3': 'Viết được code Fibonacci bottom-up bằng C++ và Python.',
+    'fibonacci.objective.4': 'Phân tích được độ phức tạp thời gian và bộ nhớ của lời giải.',
+    'fibonacci.prereq.1': 'Biết khái niệm biến và vòng lặp.',
+    'fibonacci.prereq.2': 'Hiểu mảng/list ở mức cơ bản.',
+    'fibonacci.prereq.3': 'Biết định nghĩa dãy Fibonacci.',
+    'fibonacci.theory.1': 'Dãy Fibonacci được định nghĩa như sau:',
+    'fibonacci.formula.condition': 'với',
+    'fibonacci.theory.2': 'Cách bottom-up bắt đầu từ hai giá trị nhỏ nhất, sau đó xây dần các kết quả lớn hơn. Thay vì gọi đệ quy nhiều lần, ta lưu lại kết quả đã tính và dùng chúng để tính bước tiếp theo.',
+    'fibonacci.theory.3': 'Với n = 6, ta tính lần lượt:',
+    'fibonacci.theory.4': 'Ý tưởng quan trọng: mỗi trạng thái F(i) chỉ phụ thuộc vào hai trạng thái trước đó là F(i - 1) và F(i - 2).',
+    'fibonacci.visualization.title': 'Bảng trạng thái Fibonacci',
+    'fibonacci.complexity.note': 'Ta duyệt từ 2 đến n, nên thời gian là O(n). Mảng dp có n + 1 phần tử, nên bộ nhớ là O(n).',
+    'fibonacci.mistake.1': 'Quên xử lý trường hợp n = 0 hoặc n = 1.',
+    'fibonacci.mistake.2': 'Tạo mảng dp không đủ kích thước.',
+    'fibonacci.mistake.3': 'Dùng lại công thức đệ quy nhưng không lưu kết quả, khiến thời gian tăng rất nhanh.',
+    'fibonacci.mistake.4': 'Nhầm thứ tự cập nhật khi tối ưu bộ nhớ xuống O(1).',
+    'fibonacci.practice.1': 'Tính F(10) bằng bảng bottom-up và ghi lại từng giá trị.',
+    'fibonacci.practice.2': 'Sửa code để chỉ dùng hai biến thay vì mảng dp.',
+    'fibonacci.practice.3': 'Viết hàm trả về toàn bộ dãy Fibonacci từ F(0) đến F(n).',
+    'fibonacci.summary.1': 'Bottom-up là cách giải từ bài toán nhỏ lên bài toán lớn. Với Fibonacci, ta bắt đầu từ F(0) và F(1), sau đó tính từng giá trị tiếp theo bằng công thức F(i) = F(i - 1) + F(i - 2).',
+    'fibonacci.summary.2': 'Cách này tránh việc tính lặp lại như đệ quy thuần và là ví dụ nhập môn tốt cho Quy hoạch động.',
+  },
+  en: {
+    'nav.home': 'Home',
+    'nav.courses': 'Courses',
+    'nav.visualizer': 'Visualizer',
+    'nav.quiz': 'Quiz',
+    'nav.blog': 'Blog',
+    'nav.language': 'Language',
+    'nav.switchLanguage': 'Switch language',
+    'courses.all': 'All Courses',
+    'courses.viewAll': 'View All Courses →',
+    'mega.programming': 'Programming',
+    'mega.computerScience': 'Computer Science',
+    'mega.career': 'Career',
+    'mega.projects': 'Projects',
+    'footer.courses': 'Courses',
+    'footer.practice': 'Practice',
+    'footer.more': 'More',
+    'footer.copyright': 'Copyright © 2026 Visualize Code. Built with Docusaurus.',
+    'common.comingSoon': 'Coming soon',
+    'common.lessons': 'lessons',
+    'lesson.lesson': 'Lesson',
+    'lesson.difficulty': 'Difficulty',
+    'lesson.estimatedTime': 'Estimated time',
+    'lesson.tags': 'Tags',
+    'lesson.minutes': 'minutes',
+    'lesson.notUpdated': 'Not updated',
+    'lesson.noTags': 'No tags yet',
+    'lesson.beginner': 'Beginner',
+    'lesson.intermediate': 'Intermediate',
+    'lesson.advanced': 'Advanced',
+    'lesson.noPrerequisites': 'This lesson does not require special prerequisites.',
+    'lesson.visualization': 'Visualization',
+    'lesson.visualizationPlaceholder': 'This area will be connected to a visualizer/animation in a later phase.',
+    'lesson.programOutput': 'Program Output',
+    'lesson.programOutputPlaceholder': 'This area will show program output or runner results when the Code Runner is implemented.',
+    'lesson.quiz': 'Quiz',
+    'lesson.quizPlaceholder': 'Interactive quiz will be added in a later phase. The lesson keeps this slot so MDX does not need a future refactor.',
+    'lesson.practice': 'Practice',
+    'lesson.practicePlaceholder': 'Practice tasks will be added when the practice system is ready.',
+    'lesson.timeComplexity': 'Time Complexity',
+    'lesson.spaceComplexity': 'Space Complexity',
+    'pagination.previous': 'Previous',
+    'pagination.next': 'Next',
+    'topic.dynamic-programming': 'Dynamic Programming',
+    'topic.searching': 'Searching',
+    'topic.sorting': 'Sorting',
+    'topic.graphs': 'Graphs',
+    'topic.trees': 'Trees',
+    'course.dsa.title': 'DSA',
+    'course.dsa.description': 'Data structures and algorithms with visual explanations.',
+    'course.python.title': 'Python',
+    'course.python.description': 'A beginner-friendly Python learning path.',
+    'course.cpp.title': 'C++',
+    'course.cpp.description': 'C++ fundamentals and algorithm foundations.',
+    'course.oop.title': 'OOP',
+    'course.oop.description': 'Object-oriented programming through visual examples.',
+    'course.algorithms.title': 'Algorithms',
+    'course.algorithms.description': 'Algorithm patterns and complexity analysis.',
+    'course.data-structures.title': 'Data Structures',
+    'course.data-structures.description': 'How to organize data and perform efficient operations.',
+    'course.interview-prep.title': 'Interview Prep',
+    'course.interview-prep.description': 'Review patterns and technical interview exercises.',
+    'course.python-projects.title': 'Python Projects',
+    'course.python-projects.description': 'Small Python projects for practice.',
+    'course.web-projects.title': 'Web Projects',
+    'course.web-projects.description': 'Hands-on web projects.',
+    'sidebar.Introduction': 'Introduction',
+    'sidebar.Dynamic Programming': 'Dynamic Programming',
+    'sidebar.Graphs': 'Graphs',
+    'sidebar.Trees': 'Trees',
+    'sidebar.Sorting': 'Sorting',
+    'sidebar.Python Core': 'Python Core',
+    'sidebar.Algorithms': 'Algorithms',
+    'sidebar.Data Structures': 'Data Structures',
+    'sidebar.Interview Prep': 'Interview Prep',
+    'sidebar.Fibonacci Bottom-up': 'Fibonacci Bottom-up',
+    'sidebar.Climbing Stairs': 'Climbing Stairs',
+    'sidebar.House Robber': 'House Robber',
+    'sidebar.Coin Change': 'Coin Change',
+    'sidebar.Longest Common Subsequence': 'Longest Common Subsequence',
+    'sidebar.Knapsack': 'Knapsack',
+    'sidebar.Binary Tree': 'Binary Tree',
+    'sidebar.Merge Sort': 'Merge Sort',
+    'sidebar.Quick Sort': 'Quick Sort',
+    'sidebar.Basic Syntax': 'Basic Syntax',
+    'sidebar.Variables': 'Variables',
+    'sidebar.Operators': 'Operators',
+    'sidebar.Conditions': 'Conditions',
+    'sidebar.Loops': 'Loops',
+    'sidebar.Functions': 'Functions',
+    'sidebar.Lists': 'Lists',
+    'sidebar.Dictionary': 'Dictionary',
+    'sidebar.Files': 'Files',
+    'sidebar.Projects': 'Projects',
+    'fibonacci.title': 'Fibonacci Bottom-up',
+    'fibonacci.description': 'Learn how to solve Fibonacci with bottom-up dynamic programming.',
+    'fibonacci.objectives.heading': 'Learning Objectives',
+    'fibonacci.prerequisites.heading': 'Prerequisites',
+    'fibonacci.video.heading': 'Lesson Video',
+    'fibonacci.theory.heading': 'Theory',
+    'fibonacci.visualization.heading': 'Visualization',
+    'fibonacci.code.heading': 'Code Example',
+    'fibonacci.output.heading': 'Program Output',
+    'fibonacci.complexity.heading': 'Complexity',
+    'fibonacci.mistakes.heading': 'Common Mistakes',
+    'fibonacci.quiz.heading': 'Quiz',
+    'fibonacci.practice.heading': 'Practice',
+    'fibonacci.summary.heading': 'Summary',
+    'fibonacci.objective.1': 'Understand bottom-up dynamic programming through Fibonacci.',
+    'fibonacci.objective.2': 'Build values from smaller subproblems to larger ones.',
+    'fibonacci.objective.3': 'Write bottom-up Fibonacci code in C++ and Python.',
+    'fibonacci.objective.4': 'Analyze the time and space complexity of the solution.',
+    'fibonacci.prereq.1': 'Know variables and loops.',
+    'fibonacci.prereq.2': 'Understand arrays/lists at a basic level.',
+    'fibonacci.prereq.3': 'Know the definition of the Fibonacci sequence.',
+    'fibonacci.theory.1': 'The Fibonacci sequence is defined as:',
+    'fibonacci.formula.condition': 'where',
+    'fibonacci.theory.2': 'The bottom-up approach starts from the smallest values, then builds larger results step by step. Instead of calling recursion repeatedly, we store computed results and reuse them for the next state.',
+    'fibonacci.theory.3': 'For n = 6, we compute:',
+    'fibonacci.theory.4': 'The key idea: each state F(i) depends only on the two previous states, F(i - 1) and F(i - 2).',
+    'fibonacci.visualization.title': 'Fibonacci State Table',
+    'fibonacci.complexity.note': 'We iterate from 2 to n, so the time complexity is O(n). The dp array has n + 1 elements, so the space complexity is O(n).',
+    'fibonacci.mistake.1': 'Forgetting to handle n = 0 or n = 1.',
+    'fibonacci.mistake.2': 'Creating a dp array that is too small.',
+    'fibonacci.mistake.3': 'Using the recursive formula without memoization, causing the runtime to grow very quickly.',
+    'fibonacci.mistake.4': 'Updating variables in the wrong order when optimizing memory to O(1).',
+    'fibonacci.practice.1': 'Compute F(10) with a bottom-up table and write down every value.',
+    'fibonacci.practice.2': 'Change the code to use only two variables instead of a dp array.',
+    'fibonacci.practice.3': 'Write a function that returns the full Fibonacci sequence from F(0) to F(n).',
+    'fibonacci.summary.1': 'Bottom-up solves the problem from small cases to larger cases. For Fibonacci, we start with F(0) and F(1), then compute each next value with F(i) = F(i - 1) + F(i - 2).',
+    'fibonacci.summary.2': 'This avoids repeated work from plain recursion and is a good first example of Dynamic Programming.',
+  },
+};
+
+export function LanguageProvider({children}) {
+  const [language, setLanguageState] = useState(DEFAULT_LANGUAGE);
+
+  useEffect(() => {
+    const storedLanguage = window.localStorage.getItem(STORAGE_KEY);
+    if (storedLanguage && languages[storedLanguage]) {
+      setLanguageState(storedLanguage);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const value = useMemo(() => {
+    function setLanguage(nextLanguage) {
+      if (!languages[nextLanguage]) {
+        return;
+      }
+
+      window.localStorage.setItem(STORAGE_KEY, nextLanguage);
+      setLanguageState(nextLanguage);
+    }
+
+    function toggleLanguage() {
+      setLanguage(language === 'vi' ? 'en' : 'vi');
+    }
+
+    function t(key, fallback = key) {
+      return translations[language]?.[key] ?? translations.vi[key] ?? fallback;
+    }
+
+    return {language, setLanguage, toggleLanguage, t};
+  }, [language]);
+
+  return (
+    <LanguageContext.Provider value={value}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (!context) {
+    throw new Error('useLanguage must be used inside LanguageProvider');
+  }
+
+  return context;
+}
+
+export function useTranslation() {
+  return useLanguage().t;
+}

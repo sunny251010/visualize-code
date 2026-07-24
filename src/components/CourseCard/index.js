@@ -1,17 +1,23 @@
 import Link from '@docusaurus/Link';
 import {getCoursePath} from '@site/src/data/courseNavigation';
+import {useTranslation} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
 export default function CourseCard({course}) {
+  const t = useTranslation();
   const isComingSoon = course.comingSoon;
+  const title = t(`course.${course.id}.title`, course.title);
+  const description = t(`course.${course.id}.description`, course.description);
 
   const content = (
     <>
       <span className={styles.icon}>{course.icon}</span>
-      <span className={styles.title}>{course.title}</span>
-      <p>{course.description}</p>
+      <span className={styles.title}>{title}</span>
+      <p>{description}</p>
       <span className={styles.meta}>
-        {isComingSoon ? 'Coming soon' : `${countLessons(course)} bài học`}
+        {isComingSoon
+          ? t('common.comingSoon')
+          : `${countLessons(course)} ${t('common.lessons')}`}
       </span>
     </>
   );

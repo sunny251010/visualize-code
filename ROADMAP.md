@@ -288,26 +288,28 @@ Kết quả cần có:
 - Navigation đúng mục tiêu.
 - Chạy local và build được.
 
-### Phase 2 - Thiết kế content system và lesson template
+### Phase 2 - Thiết kế Content System và Lesson Template
 
 Mục tiêu:
 
-- Có format bài học thống nhất, dễ viết thêm nhiều bài về sau.
+- Xây dựng hệ thống bài học thống nhất, dễ mở rộng và tái sử dụng.
+- Đặt nền móng cho các tính năng như Quiz, Code Runner, Visualizer... trong tương lai mà không cần sửa lại các bài học.
 
 Task:
 
-- Tạo lesson template MDX.
-- Định nghĩa metadata cho bài học: course, topic, level, estimatedTime, prerequisites.
-- Tạo các component nội dung cơ bản: intro, complexity table, video embed, hint panel.
-- Tạo `CodeTabs` cho C++ và Python.
-- Tạo style riêng cho lesson page.
-- Viết guideline ngắn cho tác giả nội dung.
-- Tạo 1 bài học mẫu đầy đủ tất cả phần.
+- Tạo lesson template MDX chuẩn.
+- Định nghĩa metadata cho bài học (course, topic, level, estimatedTime, prerequisites, tags...).
+- Xây dựng các component nội dung cơ bản (Lesson Header, Video, CodeTabs, Complexity Table, Hint, Note, Practice, Summary...).
+- Chuẩn bị placeholder/component cho các tính năng mở rộng (Quiz, Code Runner, Visualizer...).
+- Thiết kế giao diện riêng cho Lesson Page.
+- Viết guideline ngắn cho người tạo nội dung.
+- Tạo một bài học mẫu sử dụng đầy đủ template và component.
 
 Kết quả cần có:
 
-- Thêm bài học mới nhanh và nhất quán.
-- Bài học mẫu có đủ các phần cần thiết.
+- Hệ thống bài học thống nhất và dễ mở rộng.
+- Thêm bài học mới nhanh chóng theo template.
+- Sẵn sàng mở rộng các tính năng trong tương lai mà không phải chỉnh sửa lại các bài học cũ.
 
 ### Phase 3 - MVP course DSA
 

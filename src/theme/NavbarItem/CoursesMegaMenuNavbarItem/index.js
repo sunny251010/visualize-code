@@ -7,6 +7,7 @@ import {
   courses,
   getCoursePath,
 } from '@site/src/data/courseNavigation';
+import {useTranslation} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
 export default function CoursesMegaMenuNavbarItem({
@@ -23,6 +24,7 @@ export default function CoursesMegaMenuNavbarItem({
 
 function CoursesMegaMenuDesktop({label, position}) {
   const location = useLocation();
+  const t = useTranslation();
   const menuRef = useRef(null);
   const [open, setOpen] = useState(false);
   const isActive = location.pathname.includes('/courses');
@@ -66,7 +68,7 @@ function CoursesMegaMenuDesktop({label, position}) {
             setOpen(false);
           }
         }}>
-        {label}
+        {t('nav.courses', label)}
         <span className={styles.chevron} aria-hidden="true">⌄</span>
       </button>
 
@@ -77,7 +79,7 @@ function CoursesMegaMenuDesktop({label, position}) {
           ))}
         </div>
         <Link className={styles.viewAll} to="/courses" onClick={() => setOpen(false)}>
-          View All Courses →
+          {t('courses.viewAll')}
         </Link>
       </div>
     </div>
@@ -85,25 +87,27 @@ function CoursesMegaMenuDesktop({label, position}) {
 }
 
 function CoursesMegaMenuMobile({label}) {
+  const t = useTranslation();
+
   return (
     <li className="menu__list-item">
       <details className={styles.mobileDetails}>
-        <summary className="menu__link menu__link--sublist">{label}</summary>
+        <summary className="menu__link menu__link--sublist">{t('nav.courses', label)}</summary>
         <ul className="menu__list">
           {courseGroups.map((group) => (
             <li className="menu__list-item" key={group.id}>
               <details className={styles.mobileGroup}>
-                <summary className="menu__link menu__link--sublist">{group.title}</summary>
+                <summary className="menu__link menu__link--sublist">{getGroupTitle(group, t)}</summary>
                 <ul className="menu__list">
                   {getCoursesForGroup(group).map((course) => (
                     <li className="menu__list-item" key={course.id}>
                       {course.comingSoon ? (
                         <span className={clsx('menu__link', styles.mobileMuted)}>
-                          {course.title}
+                          {getCourseTitle(course, t)}
                         </span>
                       ) : (
                         <Link className="menu__link" to={getCoursePath(course)}>
-                          {course.title}
+                          {getCourseTitle(course, t)}
                         </Link>
                       )}
                     </li>
@@ -114,7 +118,7 @@ function CoursesMegaMenuMobile({label}) {
           ))}
           <li className="menu__list-item">
             <Link className="menu__link menu__link--active" to="/courses">
-              View All Courses →
+              {t('courses.viewAll')}
             </Link>
           </li>
         </ul>
@@ -124,16 +128,18 @@ function CoursesMegaMenuMobile({label}) {
 }
 
 function MegaMenuGroup({group, onNavigate}) {
+  const t = useTranslation();
+
   return (
     <section className={styles.group}>
-      <h3>{group.title}</h3>
+      <h3>{getGroupTitle(group, t)}</h3>
       <div className={styles.groupLinks}>
         {getCoursesForGroup(group).map((course) => {
           if (course.comingSoon) {
             return (
               <span className={clsx(styles.courseLink, styles.comingSoon)} key={course.id}>
-                <span>{course.title}</span>
-                <small>Coming soon</small>
+                <span>{getCourseTitle(course, t)}</span>
+                <small>{t('common.comingSoon')}</small>
               </span>
             );
           }
@@ -144,8 +150,8 @@ function MegaMenuGroup({group, onNavigate}) {
               to={getCoursePath(course)}
               key={course.id}
               onClick={onNavigate}>
-              <span>{course.title}</span>
-              <small>{course.description}</small>
+              <span>{getCourseTitle(course, t)}</span>
+              <small>{getCourseDescription(course, t)}</small>
             </Link>
           );
         })}
@@ -158,4 +164,23 @@ function getCoursesForGroup(group) {
   return group.courseIds
     .map((courseId) => courses.find((course) => course.id === courseId))
     .filter(Boolean);
+}
+
+function getGroupTitle(group, t) {
+  const keys = {
+    programming: 'mega.programming',
+    'computer-science': 'mega.computerScience',
+    career: 'mega.career',
+    projects: 'mega.projects',
+  };
+
+  return t(keys[group.id], group.title);
+}
+
+function getCourseTitle(course, t) {
+  return t(`course.${course.id}.title`, course.title);
+}
+
+function getCourseDescription(course, t) {
+  return t(`course.${course.id}.description`, course.description);
 }

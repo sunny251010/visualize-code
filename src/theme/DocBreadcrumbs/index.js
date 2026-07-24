@@ -6,9 +6,9 @@ import {useHomePageRoute} from '@docusaurus/theme-common/internal';
 import {useLocation} from '@docusaurus/router';
 import Link from '@docusaurus/Link';
 import {translate} from '@docusaurus/Translate';
-import HomeBreadcrumbItem from '@theme/DocBreadcrumbs/Items/Home';
 import DocBreadcrumbsStructuredData from '@theme/DocBreadcrumbs/StructuredData';
 import {courses} from '@site/src/data/courseNavigation';
+import {useTranslation} from '@site/src/i18n/language';
 
 function BreadcrumbsItemLink({children, href, isLast}) {
   const className = 'breadcrumbs__link';
@@ -41,6 +41,7 @@ export default function DocBreadcrumbs() {
   const breadcrumbs = useSidebarBreadcrumbs();
   const homePageRoute = useHomePageRoute();
   const location = useLocation();
+  const t = useTranslation();
 
   if (!breadcrumbs) {
     return null;
@@ -50,10 +51,17 @@ export default function DocBreadcrumbs() {
     breadcrumbs,
     location.pathname,
   );
+  const translatedBreadcrumbs = normalizedBreadcrumbs.map((item) => ({
+    ...item,
+    label:
+      item.label === 'Courses'
+        ? t('courses.all')
+        : t(`sidebar.${item.label}`, item.label),
+  }));
 
   return (
     <>
-      <DocBreadcrumbsStructuredData breadcrumbs={normalizedBreadcrumbs} />
+      <DocBreadcrumbsStructuredData breadcrumbs={translatedBreadcrumbs} />
       <nav
         className={clsx(
           ThemeClassNames.docs.docBreadcrumbs,
@@ -64,9 +72,15 @@ export default function DocBreadcrumbs() {
           description: 'The ARIA label for the breadcrumbs',
         })}>
         <ul className="breadcrumbs">
-          {homePageRoute && <HomeBreadcrumbItem />}
-          {normalizedBreadcrumbs.map((item, index) => {
-            const isLast = index === normalizedBreadcrumbs.length - 1;
+          {homePageRoute && (
+            <BreadcrumbsItem active={false}>
+              <BreadcrumbsItemLink href={homePageRoute.path} isLast={false}>
+                {t('nav.home')}
+              </BreadcrumbsItemLink>
+            </BreadcrumbsItem>
+          )}
+          {translatedBreadcrumbs.map((item, index) => {
+            const isLast = index === translatedBreadcrumbs.length - 1;
             const href =
               item.type === 'category' && item.linkUnlisted
                 ? undefined

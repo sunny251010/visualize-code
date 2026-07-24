@@ -94,6 +94,10 @@ const config = {
           {to: '/visualizer', label: 'Visualizer', position: 'left'},
           {to: '/quiz', label: 'Quiz', position: 'left'},
           {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            type: 'custom-languageToggle',
+            position: 'right',
+          },
         ],
       },
       footer: {
