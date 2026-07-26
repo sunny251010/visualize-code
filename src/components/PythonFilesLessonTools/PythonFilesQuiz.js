@@ -1,17 +1,21 @@
-import {useMemo, useState} from 'react';
-import {pythonFilesQuizQuestions} from '@site/src/data/pythonFilesContent';
+import {useEffect, useMemo, useState} from 'react';
+import {pythonFilesTranslations} from '@site/src/data/pythonFilesContent';
+import {useLanguage} from '@site/src/i18n/language';
 import styles from '@site/src/components/FibonacciLessonTools/styles.module.css';
 
 const fallbackLabels = {
-  correct: 'Đúng.',
-  wrong: 'Chưa đúng.',
-  submit: 'Nộp bài',
-  retry: 'Làm lại',
+  correct: '\u0110\u00fang.',
+  wrong: 'Ch\u01b0a \u0111\u00fang.',
+  submit: 'N\u1ed9p b\u00e0i',
+  retry: 'L\u00e0m l\u1ea1i',
 };
 
 export default function PythonFilesQuiz({quiz}) {
-  const questions = quiz?.questions ?? pythonFilesQuizQuestions;
-  const labels = quiz?.labels ?? fallbackLabels;
+  const {language} = useLanguage();
+  const localizedQuiz = quiz ?? pythonFilesTranslations[language]?.quiz;
+  const questions = localizedQuiz?.questions ?? pythonFilesTranslations.vi.quiz.questions;
+  const labels = localizedQuiz?.labels ?? fallbackLabels;
+  const title = localizedQuiz?.title ?? 'Ki\u1ec3m tra b\u00e0i File trong Python';
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const score = useMemo(
@@ -22,12 +26,17 @@ export default function PythonFilesQuiz({quiz}) {
     [answers, questions],
   );
 
+  useEffect(() => {
+    setAnswers({});
+    setSubmitted(false);
+  }, [questions]);
+
   return (
     <div className={styles.quiz}>
       <div className={styles.toolHeader}>
         <div>
           <span className={styles.eyebrow}>Quiz Python Files</span>
-          <h3>{quiz?.title ?? 'Kiểm tra bài File trong Python'}</h3>
+          <h3>{title}</h3>
         </div>
         <div className={styles.stepBadge}>
           {submitted ? `${score}/${questions.length}` : `${Object.keys(answers).length}/${questions.length}`}

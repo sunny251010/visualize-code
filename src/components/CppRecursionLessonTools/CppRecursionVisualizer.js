@@ -1,15 +1,33 @@
 import {useEffect, useState} from 'react';
-import {
-  cppRecursionCodeLines,
-  cppRecursionFrames,
-} from '@site/src/data/cppRecursionContent';
+import {getCppRecursionVisualizerContent} from '@site/src/data/cppRecursionContent';
+import {useLanguage} from '@site/src/i18n/language';
 import styles from '@site/src/components/FibonacciLessonTools/styles.module.css';
 import localStyles from './styles.module.css';
 
-export default function CppRecursionVisualizer({compact = false}) {
+export default function CppRecursionVisualizer({compact = false, visualization}) {
+  const {language} = useLanguage();
+  const defaultVisualization = getCppRecursionVisualizerContent(language);
+  const localizedVisualization = {
+    ...defaultVisualization,
+    ...visualization,
+    labels: {
+      ...defaultVisualization.labels,
+      ...visualization?.labels,
+      phases: {
+        ...defaultVisualization.labels.phases,
+        ...visualization?.labels?.phases,
+      },
+    },
+  };
+  const {codeLines, description, frames, labels, title} = localizedVisualization;
   const [frameIndex, setFrameIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const frame = cppRecursionFrames[frameIndex];
+  const frame = frames[frameIndex] ?? frames[0];
+
+  useEffect(() => {
+    setFrameIndex(0);
+    setPlaying(false);
+  }, [frames]);
 
   useEffect(() => {
     if (!playing) {
@@ -18,7 +36,7 @@ export default function CppRecursionVisualizer({compact = false}) {
 
     const timer = window.setInterval(() => {
       setFrameIndex((current) => {
-        if (current >= cppRecursionFrames.length - 1) {
+        if (current >= frames.length - 1) {
           setPlaying(false);
           return current;
         }
@@ -28,16 +46,20 @@ export default function CppRecursionVisualizer({compact = false}) {
     }, 1000);
 
     return () => window.clearInterval(timer);
-  }, [playing]);
+  }, [frames.length, playing]);
+
+  if (!frame) {
+    return null;
+  }
 
   return (
     <div className={styles.visualizer}>
       <div className={styles.toolHeader}>
         <div>
           <span className={styles.eyebrow}>C++ Recursion</span>
-          <h3>Mô phỏng call stack factorial(4)</h3>
+          <h3>{title}</h3>
         </div>
-        <div className={styles.stepBadge}>Bước {frameIndex + 1}/{cppRecursionFrames.length}</div>
+        <div className={styles.stepBadge}>{labels.step} {frameIndex + 1}/{frames.length}</div>
       </div>
 
       <div className={localStyles.recursionLayout}>
@@ -52,19 +74,19 @@ export default function CppRecursionVisualizer({compact = false}) {
                 ].join(' ')}
                 key={`${value}-${index}`}>
                 <strong>factorial({value})</strong>
-                <span>{index === 0 ? 'đang xử lý' : 'đang chờ'}</span>
+                <span>{index === 0 ? labels.processing : labels.waiting}</span>
               </div>
             ))}
           </div>
         </div>
 
         <div className={localStyles.detailPanel}>
-          <span className={localStyles.panelLabel}>Trạng thái</span>
+          <span className={localStyles.panelLabel}>{labels.status}</span>
           <div className={localStyles.expression}>{frame.expression}</div>
           <p>{frame.note}</p>
           <div className={styles.traceGrid}>
             <TraceItem label="n" value={frame.n} />
-            <TraceItem label="pha" value={formatPhase(frame.phase)} />
+            <TraceItem label={labels.phase} value={formatPhase(frame.phase, labels.phases)} />
             <TraceItem label="return" value={frame.returnValue ?? '-'} />
             <TraceItem label="stack" value={frame.stack.length} />
           </div>
@@ -72,32 +94,32 @@ export default function CppRecursionVisualizer({compact = false}) {
       </div>
 
       <div className={styles.explainRow}>
-        <p>Đệ quy luôn cần điều kiện dừng và bước gọi lại trên bài toán nhỏ hơn.</p>
+        <p>{description}</p>
         <div className={styles.controls}>
           <button type="button" onClick={() => setFrameIndex(0)}>
-            Reset
+            {labels.reset}
           </button>
           <button
             type="button"
             onClick={() => setFrameIndex((current) => Math.max(0, current - 1))}
             disabled={frameIndex === 0}>
-            Trước
+            {labels.previous}
           </button>
           <button type="button" onClick={() => setPlaying((current) => !current)}>
-            {playing ? 'Dừng' : 'Chạy'}
+            {playing ? labels.pause : labels.play}
           </button>
           <button
             type="button"
-            onClick={() => setFrameIndex((current) => Math.min(cppRecursionFrames.length - 1, current + 1))}
-            disabled={frameIndex === cppRecursionFrames.length - 1}>
-            Sau
+            onClick={() => setFrameIndex((current) => Math.min(frames.length - 1, current + 1))}
+            disabled={frameIndex === frames.length - 1}>
+            {labels.next}
           </button>
         </div>
       </div>
 
       {!compact && (
         <pre className={styles.codeTrace}>
-          {cppRecursionCodeLines.map((line, index) => (
+          {codeLines.map((line, index) => (
             <code
               className={frame.activeLine === index + 1 ? styles.activeCodeLine : ''}
               key={line}>
@@ -119,12 +141,6 @@ function TraceItem({label, value}) {
   );
 }
 
-function formatPhase(phase) {
-  const labels = {
-    call: 'gọi hàm',
-    base: 'điều kiện dừng',
-    return: 'trả về',
-  };
-
-  return labels[phase] ?? phase;
+function formatPhase(phase, labels) {
+  return labels?.[phase] ?? phase;
 }

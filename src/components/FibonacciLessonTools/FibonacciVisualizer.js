@@ -1,15 +1,29 @@
 import {useEffect, useMemo, useState} from 'react';
-import {
-  fibonacciCodeLines,
-  fibonacciSteps,
-} from '@site/src/data/fibonacciContent';
+import {getFibonacciVisualizerContent} from '@site/src/data/fibonacciContent';
+import {useLanguage} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
-export default function FibonacciVisualizer({compact = false}) {
+export default function FibonacciVisualizer({compact = false, visualization}) {
+  const {language} = useLanguage();
+  const defaultVisualization = getFibonacciVisualizerContent(language);
+  const localizedVisualization = {
+    ...defaultVisualization,
+    ...visualization,
+    labels: {
+      ...defaultVisualization.labels,
+      ...visualization?.labels,
+    },
+  };
+  const {codeLines, labels, steps, title} = localizedVisualization;
   const [stepIndex, setStepIndex] = useState(0);
   const [playing, setPlaying] = useState(false);
-  const currentStep = fibonacciSteps[stepIndex];
-  const cells = useMemo(() => buildCells(stepIndex), [stepIndex]);
+  const currentStep = steps[stepIndex] ?? steps[0];
+  const cells = useMemo(() => buildCells(stepIndex, steps), [stepIndex, steps]);
+
+  useEffect(() => {
+    setStepIndex(0);
+    setPlaying(false);
+  }, [steps]);
 
   useEffect(() => {
     if (!playing) {
@@ -18,7 +32,7 @@ export default function FibonacciVisualizer({compact = false}) {
 
     const timer = window.setInterval(() => {
       setStepIndex((current) => {
-        if (current >= fibonacciSteps.length - 1) {
+        if (current >= steps.length - 1) {
           setPlaying(false);
           return current;
         }
@@ -28,16 +42,20 @@ export default function FibonacciVisualizer({compact = false}) {
     }, 950);
 
     return () => window.clearInterval(timer);
-  }, [playing]);
+  }, [playing, steps.length]);
+
+  if (!currentStep) {
+    return null;
+  }
 
   return (
     <div className={styles.visualizer}>
       <div className={styles.toolHeader}>
         <div>
           <span className={styles.eyebrow}>Fibonacci Bottom-up</span>
-          <h3>Bảng dp từ F(0) đến F(6)</h3>
+          <h3>{title}</h3>
         </div>
-        <div className={styles.stepBadge}>Bước {stepIndex + 1}/{fibonacciSteps.length}</div>
+        <div className={styles.stepBadge}>{labels.step} {stepIndex + 1}/{steps.length}</div>
       </div>
 
       <div className={styles.arrayGrid}>
@@ -67,29 +85,29 @@ export default function FibonacciVisualizer({compact = false}) {
         <p>{currentStep.note}</p>
         <div className={styles.controls}>
           <button type="button" onClick={() => setStepIndex(0)}>
-            Reset
+            {labels.reset}
           </button>
           <button
             type="button"
             onClick={() => setStepIndex((current) => Math.max(0, current - 1))}
             disabled={stepIndex === 0}>
-            Trước
+            {labels.previous}
           </button>
           <button type="button" onClick={() => setPlaying((current) => !current)}>
-            {playing ? 'Dừng' : 'Chạy'}
+            {playing ? labels.pause : labels.play}
           </button>
           <button
             type="button"
-            onClick={() => setStepIndex((current) => Math.min(fibonacciSteps.length - 1, current + 1))}
-            disabled={stepIndex === fibonacciSteps.length - 1}>
-            Sau
+            onClick={() => setStepIndex((current) => Math.min(steps.length - 1, current + 1))}
+            disabled={stepIndex === steps.length - 1}>
+            {labels.next}
           </button>
         </div>
       </div>
 
       {!compact && (
         <pre className={styles.codeTrace}>
-          {fibonacciCodeLines.map((line, index) => (
+          {codeLines.map((line, index) => (
             <code
               className={currentStep.codeLine === index + 1 ? styles.activeCodeLine : ''}
               key={line}>
@@ -111,9 +129,9 @@ function TraceItem({label, value}) {
   );
 }
 
-function buildCells(stepIndex) {
-  const visibleValues = fibonacciSteps.slice(0, stepIndex + 1);
-  const currentStep = fibonacciSteps[stepIndex];
+function buildCells(stepIndex, steps) {
+  const visibleValues = steps.slice(0, stepIndex + 1);
+  const currentStep = steps[stepIndex] ?? steps[0];
 
   return Array.from({length: 7}, (_, index) => {
     const step = visibleValues.find((item) => item.index === index);

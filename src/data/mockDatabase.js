@@ -1,5 +1,6 @@
 import {
   fibonacciQuizQuestions,
+  fibonacciQuizQuestionsEn,
   fibonacciVideo,
 } from './fibonacciContent';
 import {
@@ -453,7 +454,7 @@ print(fibonacci(6))`,
     ],
     quiz: {
       type: 'multiple-choice',
-      questions: fibonacciQuizQuestions,
+      questions: fibonacciQuizQuestionsEn,
     },
     summary: [
       'Bottom-up solves the problem from small cases to larger cases. For Fibonacci, we start with `F(0)` and `F(1)`, then compute each next value with `F(i) = F(i - 1) + F(i - 2)`.',

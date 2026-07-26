@@ -1,32 +1,49 @@
-import {useMemo, useState} from 'react';
-import {fibonacciQuizQuestions} from '@site/src/data/fibonacciContent';
+import {useEffect, useMemo, useState} from 'react';
+import {getFibonacciQuizContent} from '@site/src/data/fibonacciContent';
+import {useLanguage} from '@site/src/i18n/language';
 import styles from './styles.module.css';
 
-export default function FibonacciQuiz() {
+export default function FibonacciQuiz({quiz}) {
+  const {language} = useLanguage();
+  const defaultQuiz = getFibonacciQuizContent(language);
+  const localizedQuiz = {
+    ...defaultQuiz,
+    ...quiz,
+    labels: {
+      ...defaultQuiz.labels,
+      ...quiz?.labels,
+    },
+  };
+  const {questions, labels, title} = localizedQuiz;
   const [answers, setAnswers] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const score = useMemo(
     () =>
-      fibonacciQuizQuestions.reduce((total, question) => {
+      questions.reduce((total, question) => {
         return total + (answers[question.id] === question.answerIndex ? 1 : 0);
       }, 0),
-    [answers],
+    [answers, questions],
   );
+
+  useEffect(() => {
+    setAnswers({});
+    setSubmitted(false);
+  }, [questions]);
 
   return (
     <div className={styles.quiz}>
       <div className={styles.toolHeader}>
         <div>
           <span className={styles.eyebrow}>Quiz Fibonacci</span>
-          <h3>Kiểm tra hiểu bài Bottom-up</h3>
+          <h3>{title}</h3>
         </div>
         <div className={styles.stepBadge}>
-          {submitted ? `${score}/${fibonacciQuizQuestions.length}` : `${Object.keys(answers).length}/${fibonacciQuizQuestions.length}`}
+          {submitted ? `${score}/${questions.length}` : `${Object.keys(answers).length}/${questions.length}`}
         </div>
       </div>
 
       <div className={styles.questionList}>
-        {fibonacciQuizQuestions.map((question, questionIndex) => {
+        {questions.map((question, questionIndex) => {
           const selectedAnswer = answers[question.id];
           const isCorrect = selectedAnswer === question.answerIndex;
 
@@ -63,7 +80,7 @@ export default function FibonacciQuiz() {
               </div>
               {submitted && (
                 <p className={isCorrect ? styles.feedbackGood : styles.feedbackBad}>
-                  {isCorrect ? 'Đúng.' : 'Chưa đúng.'} {question.explanation}
+                  {isCorrect ? labels.correct : labels.wrong} {question.explanation}
                 </p>
               )}
             </fieldset>
@@ -73,7 +90,7 @@ export default function FibonacciQuiz() {
 
       <div className={styles.quizActions}>
         <button type="button" onClick={() => setSubmitted(true)}>
-          Nộp bài
+          {labels.submit}
         </button>
         <button
           type="button"
@@ -81,7 +98,7 @@ export default function FibonacciQuiz() {
             setAnswers({});
             setSubmitted(false);
           }}>
-          Làm lại
+          {labels.retry}
         </button>
       </div>
     </div>
